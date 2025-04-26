@@ -1,0 +1,9 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{FastLanguageModel}\PYG{o}{.}\PYG{n}{get\PYGZus{}peft\PYGZus{}model}\PYG{p}{(}
+    \PYG{n}{model}\PYG{p}{,}
+    \PYG{n}{r} \PYG{o}{=} \PYG{l+m+mi}{16}\PYG{p}{,}  \PYG{c+c1}{\PYGZsh{} LoRA rank}
+    \PYG{n}{target\PYGZus{}modules} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{q\PYGZus{}proj}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{k\PYGZus{}proj}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{v\PYGZus{}proj}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{o\PYGZus{}proj}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{]}\PYG{p}{,}
+    \PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mi}{16}\PYG{p}{,}  \PYG{c+c1}{\PYGZsh{} LoRA alpha}
+    \PYG{n}{dropout} \PYG{o}{=} \PYG{l+m+mf}{0.05}\PYG{p}{,}  \PYG{c+c1}{\PYGZsh{} Add regularization}
+    \PYG{n}{use\PYGZus{}gradient\PYGZus{}checkpointing} \PYG{o}{=} \PYG{k+kc}{True}\PYG{p}{)}
+\end{MintedVerbatim}

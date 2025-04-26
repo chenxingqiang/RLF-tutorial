@@ -1,0 +1,618 @@
+1. Reinventing AI with DeepSeek-R1
+and Reinforcement Learning
+
+Table of
+Contents
+
+2. Why Reinforcement Fine-Tuning
+Outperforms Supervised FineTuning
+3. Accelerating Reasoning Models
+with Turbo LoRA
+4. Tutorial: Using RFT to Write CUDA
+Kernels
+5. What’s Next: Key Takeaways and
+Getting Started with RFT
+
+1
+
+AI is no longer a static endeavor—models can evolve and adapt even after
+deployment. A prominent driving force behind this shift is reinforcement
+learning (RL). Traditional machine learning approaches are more static, relying
+heavily on supervised learning that demands enormous amounts of labeled
+datasets. These large labeled datasets are used to train models to memorize
+specific facts and patterns, but what happens when data is thin? Enter
+Reinforcement Fine-Tuning (RFT), a new technique that harnesses the power of
+RL to fine-tune pre-trained language models to think for themselves.
+In this guidebook, you'll learn:
+• How DeepSeek-R1 challenged conventional AI wisdom by self-improving
+and surpassing established models.
+• Why RFT often outperforms supervised fine-tuning, especially when data is
+scarce.
+• How Turbo LoRA accelerates reasoning models to make production serving
+in production more practical.
+• A hands-on tutorial showing how to apply RFT to generate CUDA kernels—
+one of the most technical and challenging coding tasks.
+Combining real-world insights with hands-on tutorials, we’ll show you how to
+build AI systems that don’t just learn—they continually learn in an iterative,
+reward-driven manner. Prepare to explore how RFT is unlocking new frontiers
+in LLMs and beyond.
+
+2
+
+Reinventing AI
+with DeepSeek
+and
+Reinforcement
+Learning
+
+3
+
+The Self-Improvement Paradigm
+Reinforcement learning introduced a feedback-driven mechanism for training
+AI. Rather than relying on a massive set of labeled examples, RL agents learn by
+exploration and reward:
+• Exploration: The model attempts multiple strategies or actions to solve a
+task.
+• Reward: Each action yields some reward signal (positive or negative), which
+guides the model’s future choices.
+This approach is transformative because it aligns more closely with how
+humans naturally learn—through trial, error, and continuous feedback—and
+opens the door to continual learning and deeper reasoning capabilities. In RL,
+the “environment” can be a game, simulation, logic problem or even a textbased generation task—any context where feedback signals can guide the
+model to a correct response.
+
+4
+
+The Significance of DeepSeek-R1
+in Modern AI
+DeepSeek-R1 exemplifies how a model can be designed to reason. Instead of
+passively ingesting training data, DeepSeek-R1 performs active exploration:
+• Adaptive Reward Structures: The team behind DeepSeek-R1 designed
+multiple reward functions—some focused on accuracy, others on efficiency
+or creativity. The model then learned to balance these objectives and learn
+different strategies for solving complex problems.
+• Iterative Refinement: Each iteration of training involved not just
+backpropagation of errors but a reward-based feedback loop that
+emphasized what worked best in practice.
+• Breaking Performance Barriers: By continuously learning from outcomes,
+DeepSeek-R1 was able to outperform traditional LLMs.
+Perhaps the biggest contribution of DeepSeek-R1 is the fact that it’s opensourced. By sharing its weights and training approach, the team behind
+DeepSeek made it possible for engineering teams to train and customize their
+own reasoning models. Prior to the release of DeepSeek-R1, OpenAI’s closedsource O1 model was pretty much the only reasoning model engineers could
+get their hands on and the weights were certainly not available for deeper
+inspection.
+
+5
+
+Comparing DeepSeek-R1 to
+Traditional Models
+Typically, traditional models train once on a static dataset and then freeze their
+parameters upon deployment. In contrast, DeepSeek-R1:
+• Learns dynamically, responding to changes in task requirements or data
+distributions.
+• Requires far fewer explicitly labeled data points because it learns from
+rewards. A reasoning model can be fine-tuned with as little as 10 rows of
+example data and provide incredible results—more on that later.
+• Minimizes the risk of stagnation—a phenomenon where models plateau due
+to lack of new, high-quality labeled data.
+The key takeaway: Deepseek-R1’s success hints at a future where “one-anddone” training is a relic of the past. Continuous learning is quickly becoming the
+de facto standard for high-stakes AI applications.
+
+6
+
+The Future of AI
+Customization:
+Reinforcement
+Fine-Tuning vs.
+Supervised FineTuning
+7
+
+What is Reinforcement FineTuning (RFT)?
+For years, Reinforcement Learning (RL) and fine-tuning belonged to completely
+different worlds. On one hand, fine-tuning is all about supervised learning: you
+train a model on labeled data, and it learns to predict the correct outputs for
+given inputs. On the other hand, RL focuses on decision-making in dynamic
+environments: an agent interacts with its surroundings, gets feedback
+(rewards), and adapts based on trial and error. Enter Reinforcement FineTuning (RFT), a new twist on applying RL principles to fine-tuning tasks.
+Reinforcement Fine-Tuning (RFT) combines the strengths of fine-tuning a pretrained LLM—like the open-source Llama series from Meta—with the iterative,
+feedback-driven nature of RL. The core idea is to:
+1. Start with a pre-trained model that already has a solid grasp of general
+knowledge.
+2. Define a reward function encapsulating your target metrics (e.g.,
+correctness, user satisfaction, computational efficiency).
+3. Iteratively fine-tune this model using RL techniques such as policy
+gradients, Q-learning, or other advanced algorithms.
+This approach enables you to customize open-source LLMs with little-to-no
+data and turn them into powerful reasoning models for your specific task—like
+building an AI copilot for an internal codebase.
+
+8
+
+Comparing RFT vs. SFT
+Reinforcement fine-tuning sounds like a game-changer, but how does it differ
+from Supervised Fine-tuning? Let’s take a look:
+Reinforcement Finetuning
+
+Supervised Fine-Tuning
+
+Data
+Requirements
+
+Learns from a reward
+signal; minimal labeled
+data needed
+
+Needs large labeled
+datasets for best results typically 1,000+ rows
+
+Adaptability
+
+Improves continuously
+as new data or scenarios
+appear
+
+Improvement is mostly
+limited to the scope of the
+labeled data
+
+Exploration
+
+Actively tries new
+strategies, guided by
+rewards
+
+Relies on fixed examples,
+no inherent exploration
+mechanism
+
+Performance
+Progress
+
+Can keep improving as
+reward mechanism
+evolves
+
+Typically reaches a plateau
+once labeled data has been
+maximally leveraged
+
+Factor
+
+9
+
+RFT Wins When Data is Scarce
+Reinforcement Fine-Tuning (RFT) goes beyond Supervised Fine-Tuning (SFT) by
+removing the need for labeled data, relying instead on an objective measure of
+correctness. With only a few dozen examples, SFT often overfits (memorizing
+data rather than learning general patterns), while RFT can learn robust
+strategies and resists overfitting. However, once dataset sizes reach 100k+
+examples, RFT slows down, and SFT generalizes better.
+Example use cases where RFT shines:
+• Code Transpilation: Oftentimes, code conversion tasks (e.g., Java to Python)
+lack abundant mapping data. RFT is well-suited to these scenarios because
+you can evaluate the correctness of the generated code. For instance, in
+Java-to-Python conversion, you can run the generated Python code on test
+cases and verify that its outputs match those of the original Java program.
+• Game Strategy: Games like Chess and Wordle are straightforward when it
+comes to verifying outcomes (win/loss), but hard to label every move as
+correct or incorrect. RFT can learn effective strategies using only the
+win/loss signal.
+• Medical Diagnosis: RFT is a good fit because it learns from feedback at each
+decision point, much like a doctor refining their intuition. It explores various
+diagnostic actions (such as ordering tests), and adapts based on outcomes
+or new information, steadily improving its accuracy over time.
+
+10
+
+When to Use Reinforcement FineTuning vs. Supervised Fine-Tuning
+Deciding whether to use RFT or SFT depends on your data availability, task
+complexity, and performance goals. Below is a decision flowchart to help teams
+determine the right approach:
+
+11
+
+Performance
+Benchmarks:
+RFT vs. SFT
+12
+
+Example 1: The Countdown Game
+To explore how RFT and SFT compare at different scales, we ran experiments
+on the Countdown game with dataset sizes of 10, 100, and 1,000 examples.
+Key Findings
+• With just 10 examples, RFT improved the base model’s chain-of-thought
+performance by 18%.
+• With 100 examples, that improvement jumped to 60%.
+• SFT, on the other hand, performed poorly across all dataset sizes—likely due
+to memorizing specifics rather than building robust patterns.
+The chart on the following page shows our results. Here is additional context
+for ourvarious experiments as represented on the X-axis.
+• 0 examples: 0-shot prompting, with no demonstrations provided.
+• 10 & 100 examples: These same examples were also used for in-context
+learning.
+• 1,000 examples: We couldn’t perform in-context learning here due to
+context window limits.
+
+13
+
+14
+
+Example 2: LogiQA
+We also tested both methods on LogiQA, a multiple-choice dataset designed to
+evaluate deductive reasoning. The performance gap between direct prompting
+and chain-of-thought was small (+2% at 0-shot, -2% at 10-shot). When training
+data reached 100+ examples, SFT started outperforming RFT—a shift
+highlighting how a larger dataset can favor SFT’s ability to generalize widely.
+It’s worth noting that reasoning (via chain-of-thought) doesn’t significantly
+boost the base model for this task, so even with RFT, the potential gains are
+limited. Yet, at lower data levels (10 examples), RFT still exceeds SFT and the
+base model, underscoring its robustness in data-scarce situations.
+
+15
+
+16
+
+Practical Implications for RFT
+From our experiments, a clear pattern emerges:
+• Small Datasets: RFT is a better choice, avoiding overfitting and extracting
+more generalizable knowledge.
+• Large Datasets: SFT may have the advantage, leveraging extensive labeled
+data to develop more comprehensive patterns.
+You can also boost low-data performance by creating more detailed reward
+functions and increasing the number of model generations per training step.
+In the tutorial section of our guidebook, we explore the real-world use case of
+training a model to generate GPU code with RFT and the results are
+remarkable.
+
+17
+
+1. Scalability: Because RFT relies on
+reward feedback rather than dense
+labeling, you can scale to new tasks
+with minimal overhead.
+
+Benefits of
+RFT
+
+2. Faster Iterations: Adjusting reward
+functions is often simpler than
+acquiring and labeling thousands of
+new training samples.
+
+In an era where data is
+abundant but labeled data is
+not, RFT provides a compelling
+blueprint for AI development.
+
+3. Cost Savings: Human annotation is
+expensive. RFT shifts the burden
+onto automated reward signals,
+significantly cutting costs.
+4. Robustness: Models trained via RFT
+tend to be more robust when
+encountering domain shifts or noisy
+inputs.
+
+18
+
+Accelerating
+Reasoning
+Models with
+Turbo LoRA
+19
+
+Reasoning models like DeepSeek-R1 are pushing the
+boundaries of AI’s ability to handle complex problemsolving: they can reason through intricate logic, generate
+step-by-step mathematical solutions, and provide
+explainable outputs.
+However, this advanced reasoning comes at a cost: slow
+throughput. Reasoning models “think” by generating a lot
+of tokens, and generating tokens is inherently slow. Unlike
+traditional LLMs that generate responses based purely on
+statistical predictions, reasoning models like DeepSeek-R1
+decompose problems into structured steps, following a
+logical “chain of thought.” This means multiple intermediate
+computations are required, further increasing the overall
+processing time.
+If you plan to put reasoning models into production, then
+exploring novel techniques for accelerating throughput and
+reducing latency is paramount. Let’s dive in.
+
+20
+
+LoRA: A Quick Refresher
+LoRA (Low-Rank Adaptation) is a technique that fine-tunes large language
+models by introducing a small set of trainable parameters—usually stored in
+low-rank decomposition layers. The main advantage is:
+• You don’t have to retrain the entire model (which could be billions of
+parameters), but yield nearly the same results.
+• You keep the original weights intact, thereby preserving most of the model’s
+pre-trained knowledge.
+
+21
+
+Turbo LoRA: 2-4x Faster
+Reasoning for Your Models
+At Predibase, we developed Turbo LoRA to accelerate inference using an
+advanced technique called speculative decoding along with other proprietary
+optimizations.
+Instead of generating one token at a time, Turbo LoRA predicts multiple tokens
+in parallel and then verifies them before finalizing the output. Any “guessed”
+tokens inconsistent with the original model are discarded, ensuring zero
+difference in the final response. This allows models to maintain high-quality
+outputs while generating text significantly faster.
+How Turbo LoRA Works (Simplified):
+• A small, fast “speculator” predicts several tokens in parallel.
+• The main model verifies them—if correct, they’re instantly used.
+• If wrong, only the incorrect tokens are recalculated.
+Result: Instead of waiting for one token at a time, the model generates multiple
+tokens per step—cutting latency dramatically.
+
+22
+
+Applying Turbo to DeepSeek-R1 (or
+any reasoning model)
+To demonstrate Turbo’s effectiveness, we applied it to DeepSeek-R1-distillqwen-32b, a distilled version of DeepSeek-R1 that retains strong reasoning
+capabilities while improving efficiency. By adding Turbo LoRA, we saw
+significant improvements in throughput, making the model far more practical
+for real-world applications.
+
+23
+
+Key Benefits of Turbo for Large
+Reasoning Models
+Real-Time AI Becomes Feasible Turbo typically drives a 2-3x speedup, making
+reasoning models viable for applications like:
+• AI-powered customer support (instant responses instead of multi-second
+delays).
+• AI copilots for developers that generate and debug code in near real-time.
+• Healthcare AI assistants that provide fast, detailed diagnostic support.
+Lower GPU Costs:
+• Faster inference means fewer GPUs are needed to handle the same
+workload.
+• Cost savings scale with deployment size.
+Turbo LoRA is a milestone in making inference of reasoning models feasible for
+almost any organization. Coupled with RFT, it becomes a powerful tool for
+iterating quickly on specialized tasks without burning through your GPU
+budget.
+For a detailed tutorial on implementing Turbo LoRA, check out the following
+blog: https://predibase.com/blog/turbo-lora.
+
+24
+
+Tutorial:
+Using RFT
+to Write
+CUDA
+Kernels
+25
+
+The best way to learn about RFT is to see it in action. Let’s walk through a short
+tutorial for a complex use case: teaching an AI model to convert PyTorch code
+into efficient Triton kernels. We’ll walk through our dataset, the iterative
+training loop, the reward functions we designed—and how the model gradually
+learned to produce correct and efficient GPU code.
+
+Why GPU Code Generation is Hard
+Coding for GPUs involves:
+• Parallel Architecture: Harnessing hundreds or thousands of cores
+efficiently.
+• Memory Hierarchy: Balancing register, shared, and global memory.
+• Thread Synchronization: Avoiding race conditions and deadlocks.
+Minor errors in a CUDA kernel can degrade performance or crash the GPU.
+Teaching an AI these best practices is challenging in a supervised setting due to
+the scarcity of comprehensive examples.
+
+26
+
+Why RFT is Well Suited for Code
+Generation
+This task is particularly well-suited for using reinforcement learning because:
+• No Large Labeled Dataset Needed: We started with just a handful of
+PyTorch code snippet samples.
+• Code is Verifiable: We can deterministically test whether the generated
+Triton kernel code compiles and produces correct outputs.
+• Large Search Space: The search space for valid solutions is large and RL
+balances exploring new Kernel implementations with exploiting proven
+approaches learned during model pretraining.
+
+27
+
+Setting Up the Task: Minimal
+Dataset
+We began with a tiny hand-curated dataset of 13 examples, each containing:
+• A PyTorch function (e.g., a matrix multiply or simple activation function).
+• A set of test cases to verify correctness.
+Because there isn’t a widely available dataset mapping PyTorch code to Triton
+kernels, we curated these from open-source GitHub projects by finding valid
+Triton kernels, writing the equivalent PyTorch code ourselves, and adding our
+own test cases to execute against both the PyTorch code and the Triton kernels.
+The actual training data only consists of the 13 PyTorch code examples.
+
+28
+
+System & User Messages
+We constructed appropriate system and user prompts instructing the model
+to:
+• Create Triton kernels for the given PyTorch function
+• Use specific tags (e.g., ... ) so we could extract the kernel cleanly.
+• Import the Triton library.
+• Maintain a consistent function signature and avoid calling PyTorch
+functions that sidestep the need for real GPU code.
+
+29
+
+Defining our Rewards
+Designing a robust reward function is the heart of any RL system. We needed
+our model to learn formatting, compilation, correctness, and performance
+(eventually). Here’s how we approached it:
+
+30
+
+Reward 1: Formatting
+Goal: Encourage a consistent code structure that’s easy to parse and run.
+Implementation:
+• String Checks: Did the output include code within tags?
+• Triton Imports: Does the generated code import triton and use @triton.jit?
+• Partial Credit For Good Triton Semantics: We also assigned fractional
+scores for getting certain parts right, such as only using valid triton
+language methods, using zeroed out torch output buffers, using masks
+during load/stores, etc. .
+• Sum partial credits from all the criteria to assign a final score between 0 and
+1.
+
+31
+
+Reward 2: Compilation
+Goal: Reward the model for generating code that compiles and executes
+without throwing exceptions (no syntax errors or invalid calls) even if it gets the
+final answer wrong
+Implementation: If the code could be executed in a separate Python process
+without crashing, the model receives a positive reward of 1
+
+32
+
+Reward 3: Correctness
+Goal: Ensure the kernel’s output matches that of the PyTorch function on
+multiple test inputs.
+Implementation:
+• Multiple Test Cases: We started with two test inputs, then expanded to four
+for finer-grained feedback.
+• Reward Scaling: Calculate (total number of test cases that passed ) / (total
+number of test cases), which is a value between 0 and 1.
+• Anti RewardHacking: We monkey-patch the kernel call to detect if the
+model just returned a PyTorch operation result (instead of letting the Triton
+kernel do the work). If the outputs matched when the kernel was replaced
+with a no-op, the reward was set to 0.
+
+33
+
+Training Loop & Iterations
+How GRPO Works
+• Generate: For each prompt (PyTorch code snippet), generate N completions
+using temperature-based sampling.
+• Evaluate: For each generated completion, run our reward checks (format,
+compilation, correctness) and assign a reward per reward function.
+• Update: Compute advantages (which completions outperformed the
+average and which ones did worse than the average) and backpropagate
+those signals into the model’s parameters to update them. We use LoRA as
+our training method.
+• Repeat: Over thousands of steps, the model refines its strategy to maximize
+rewards. Typically, this it first learns the format based rewards before
+learning how to maximize other rewards.
+
+34
+
+Early Challenges & Refinements
+Challenge 1: Reward Hacking: The model initially learned shortcuts, like
+returning the result of torch.sum() instead of truly computing a sum via a Triton
+kernel. This was a form of clever reward hacking.
+• Fix: We penalized completions that succeeded on test cases where the
+output from the initial kernel execution matched a second run where we
+replaced the generated kernel with a no-op kernel.
+
+35
+
+Challenge 2: Sparse Rewards: Binary pass/fail gave the model little direction
+when it was “almost right.”
+• Fix: Introduced partial credit, particularly in the format reward function and
+via the introduction of a compilation-based reward, so generating code that
+compiles but fails correctness still earns a small reward.
+Challenge 3: Limited Test Cases: With only two test cases, the model wasn’t
+getting enough signal if it made directional progress toward a correct kernel.
+• Fix: We doubled to using four test cases, giving a more nuanced reward
+signal if the kernel leads to even getting a subset of these calls correct
+
+36
+
+Results & Discussion
+Over roughly 5,000 training steps, our model’s accuracy on held-out examples
+climbed to about 53% (meaning 53% of the time, the generated Triton kernel
+fully matched the PyTorch outputs on all test cases).
+
+Learning curves from initial training run
+
+37
+
+• Faster to Format Compliance: Within ~100–200 steps, the model reliably
+produced code that included the correct tags and imports. Within 1000
+steps, it learned to get most parts of the formatting reward function
+correct.
+• Gradual Correctness Gains: True correctness took longer to learn, rising
+steadily once the model nailed down syntax and compilation.
+• Learned to Avoid Hacking: Through our monkey-patching based detection
+algorithm, the model eventually recognized no reward could be gained by
+cheating, so it focused on improving its Triton kernel implementation.
+
+Learning curves from final training run with partial credit, anti-reward hacking
+measures, and compile reward function.
+
+38
+
+Benchmarking on Kernelbench
+We assessed our model on the Kernelbench dataset, which presents 250
+diverse challenges designed to test code-transpilation skills and output
+efficiency. We fine-tuned a relatively compact model (Qwen2.5-Coder-32Binstruct) that can run on a single GPU and compared it to larger foundation
+models like DeepSeek-R1, Claude 3.7 Sonnet, and OpenAI o1.
+Despite its smaller size, our model delivered a 3x higher correctness rate than
+both OpenAI o1 and DeepSeek-R1, and over 4x the performance of Claude 3.7
+Sonnet. Achieving these outcomes on a fraction of the hardware footprint
+underscores both the efficiency of our training pipeline and the adaptability of
+RFT for specialized coding tasks.
+We open-sourced our model (Predibase-T2T-32B-RFT) and made available on
+HuggingFace: https://pbase.ai/t2t.
+
+39
+
+Takeaways
+and
+Getting
+Started
+with RFT
+40
+
+Reinforcement Fine-tuning stands at the intersection of efficiency,
+adaptability, and continual learning. By leveraging RL principles, we can
+supercharge pre-trained models to tackle tasks that demand both precision
+and resource optimization. Turbo LoRA further democratizes this approach,
+accelerating inference for otherwise slow reasoning models.
+Key Takeaways:
+• Self-Improvement is Real: DeepSeek-R1 demonstrated that models can
+surpass static models by iterating with well-crafted rewards.
+• RFT Shines With Little Data: When labeled data is scarce, RFT outperforms
+SFT by treating rewards as the primary learning signal.
+• Reasoning Doesn’t Need to be Slow: Turbo LoRA makes serving reasoning
+models practical by increasing throughput by 2-4x.
+• Real-World Feasibility: From code generation to medical diagnosis, RFT is
+not just an academic exercise—it’s rapidly becoming a proven methodology
+for next-gen AI applications.
+
+41
+
+Next Steps with RFT
+Reinforcement fine-tuning marks a major leap in LLM development by training
+models through reward signals rather than relying solely on labeled examples.
+Predibase’s end-to-end RFT platform makes this cutting-edge approach
+accessible to developers and enterprises, removing the complexities of
+infrastructure setup so you can focus on innovation.
+• Schedule a Demo: https://pbase.ai/rft
+• Try Predibase for Free: https://pbase.ai/getstarted
+
+42
+
+Why RFT on Predibase?
+Build high performance production AI without labeled data on the fastest infra
+— all in your cloud.
+• Fully Managed in Your Cloud or Ours: No need to worry about spinning up
+or maintaining infra. Predibase provides serverless infra for reinforcement
+fine-tuning and model serving with flexibility to deployment in your cloud or
+ours.
+• Integrated Workflow for Production AI: From data prep to model
+deployment, everything is streamlined in a single unified platform with a
+robust SDK and user-friendly UI, complete with dashboards for tracking
+models and performance.
+• Blazing Fast and Efficient Serving: At the heart of our stack is LoRAX, an
+
+43
+
+

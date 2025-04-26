@@ -1,0 +1,1075 @@
+% beamer class with 16:9 aspect ratio
+\documentclass[aspectratio=169]{beamer}
+
+% load all packages
+\input{packages}
+
+% Use the modified OVGU theme with Zhijiang Lab logo
+\usepackage{beamer_ovgu_169}
+
+% 禁用参考文献功能，避免bbl文件缺失警告
+\providecommand{\bibfont}{}
+\renewcommand{\bibfont}{\normalfont\footnotesize}
+\AtEndDocument{\def\bibfont{}}
+\let\printbibliography\relax
+
+\title[RFT Guide 2025]{The Complete Guide to Reinforcement Fine-Tuning}
+\author{Chen Xingqiang}
+\institute[Yizhu Intelligent Ltd]{
+	Yizhu Intelligent Ltd\\
+	Hangzhou, China
+}
+\date[2025-04-25]{April 25, 2025}
+
+\begin{document}
+
+\begin{frame}
+	\maketitle
+\end{frame}
+
+\begin{frame}[label=inhalt]{Overview}
+	\tableofcontents
+\end{frame}
+
+\section{Reinventing AI with DeepSeek-R1 and Reinforcement Learning}
+
+\begin{frame}
+	\frametitle{Introduction to Reinforcement Learning}
+	\begin{block}{The Self-Improvement Paradigm}
+		\begin{itemize}
+			\item Reinforcement learning introduces a feedback-driven mechanism for training AI
+			\item Rather than relying on labeled examples, RL agents learn by:
+			\begin{itemize}
+				\item \textbf{Exploration}: The model attempts multiple strategies or actions
+				\item \textbf{Reward}: Each action yields reward signals that guide future choices
+			\end{itemize}
+			\item More closely aligns with how humans naturally learn through trial, error, and feedback
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Introduction to Reinforcement Learning - Continued}
+	\begin{block}{The Self-Improvement Paradigm (cont.)}
+		\begin{itemize}
+			\item Opens the door to continual learning and deeper reasoning capabilities
+			\item AI is no longer a static endeavor—models can evolve and adapt after deployment
+		\end{itemize}
+	\end{block}
+	\begin{block}{From Static to Dynamic Learning}
+		\begin{itemize}
+			\item Traditional approaches rely on enormous labeled datasets for memorization
+			\item RL shifts focus to learning strategies and reasoning patterns
+			\item The "environment" can be any context where feedback signals guide improvement
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Significance of DeepSeek-R1}
+	\begin{block}{DeepSeek-R1: A Model Designed to Reason}
+		\begin{itemize}
+			\item \textbf{Adaptive Reward Structures}: Multiple reward functions focusing on accuracy, efficiency, and creativity
+			\item \textbf{Iterative Refinement}: Reward-based feedback loops emphasizing what works best in practice
+			\item \textbf{Breaking Performance Barriers}: Continuous learning allows it to outperform traditional LLMs
+			\item \textbf{Open-Source Advantage}: Unlike OpenAI's closed-source O1, DeepSeek-R1 shares weights and training approaches
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DeepSeek-R1: Technical Implementation}
+	\begin{block}{Active Exploration Mechanisms}
+		\begin{itemize}
+			\item Instead of passively ingesting training data, performs active exploration
+			\item Training involves not just error backpropagation but reward-based feedback loops
+			\item \textbf{Exploration Strategy}: Balances trying new approaches with exploiting proven methods
+			\item \textbf{Multi-Objective Optimization}: Learns to balance accuracy, efficiency, and creativity
+		\end{itemize}
+	\end{block}
+	\begin{block}{Democratizing Reasoning Models}
+		\begin{itemize}
+			\item Open-sourcing enables engineering teams to customize their own reasoning models
+			\item Released weights allow deeper inspection and understanding of model behavior
+			\item Community contributions accelerate innovation in reasoning capabilities
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DeepSeek-R1 vs. Traditional Models}
+	\begin{block}{Key Differences:}
+		\begin{itemize}
+			\item Traditional models train once on static datasets and freeze parameters
+			\item DeepSeek-R1 takes a dynamic approach to learning
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DeepSeek-R1 vs. Traditional Models (cont.)}
+	\begin{block}{DeepSeek-R1 Advantages:}
+		\begin{itemize}
+			\item Learns dynamically, responding to changes in requirements
+			\item Requires fewer labeled data points by learning from rewards
+			\item Minimizes the risk of stagnation through continuous learning
+		\end{itemize}
+	\end{block}
+	\begin{block}{Key Insight:}
+		\begin{itemize}
+			\item "One-and-done" training becoming a relic of the past
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{Reinforcement Fine-Tuning vs. Supervised Fine-Tuning}
+
+\begin{frame}
+	\frametitle{What is Reinforcement Fine-Tuning (RFT)?}
+	\begin{block}{Combining Fine-Tuning with RL}
+		\begin{itemize}
+			\item RFT combines strengths of pre-trained LLMs with feedback-driven RL
+			\item Core process:
+			\begin{enumerate}
+				\item Start with a pre-trained model with general knowledge
+				\item Define a reward function for target metrics
+				\item Iteratively fine-tune using RL techniques
+			\end{enumerate}
+			\item Enables customization of open-source LLMs with minimal data
+			\item Turns general models into powerful reasoning models for specific tasks
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{RFT vs. SFT Comparison}
+	\begin{table}
+		\centering
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\textbf{Factor} & \textbf{RFT} & \textbf{SFT} \\
+			\hline
+			Data Requirements & Minimal labeled data & Needs 1,000+ rows \\
+			\hline
+			Adaptability & Continuous improvement & Limited by labeled data \\
+			\hline
+			Exploration & Actively tries new strategies & Relies on fixed examples \\
+			\hline
+			Performance & Continual progress & Reaches plateau \\
+			\hline
+			Error Handling & Learns from mistakes & Repeats errors in data \\
+			\hline
+			Training Complexity & Higher (needs reward function) & Lower (just needs examples) \\
+			\hline
+		\end{tabular}
+		\caption{Comparison of RFT and SFT approaches}
+	\end{table}
+\end{frame}
+
+\begin{frame}
+	\frametitle{When RFT Wins}
+	\begin{block}{RFT Excels with Scarce Data}
+		\begin{itemize}
+			\item Removes need for labeled data, relies on objective correctness
+			\item Outperforms SFT with small datasets (dozens of examples)
+			\item Resists overfitting by learning robust strategies
+			\item Best use cases:
+			\begin{itemize}
+				\item Code Transpilation (e.g., Java to Python)
+				\item Game Strategy (Chess, Wordle)
+				\item Medical Diagnosis (learning from feedback at decision points)
+			\end{itemize}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Quantitative Performance Comparison}
+	\begin{block}{RFT vs SFT by Dataset Size}
+		\begin{itemize}
+			\item \textbf{10 Examples}: RFT improved base model by 18\%, SFT showed minimal gains
+			\item \textbf{50 Examples}: RFT showed 42\% improvement over baseline
+			\item \textbf{100 Examples}: RFT improvement jumped to 60\%, 3x better than SFT
+			\item The smaller the dataset, the greater RFT's advantage over SFT
+		\end{itemize}
+	\end{block}
+	\begin{figure}[ht]
+		\centering
+		\begin{tikzpicture}[scale=0.5, transform shape]
+			\begin{axis}[
+				xlabel={Dataset Size},
+				ylabel={Performance Improvement (\%)},
+				legend style={at={(0.5,-0.15)}, anchor=north},
+				ymin=0,
+				ymax=70,
+				grid=both,
+				minor tick num=1,
+				width=8cm,
+				height=5cm,
+				legend columns=2,
+				scaled ticks=false,
+				font=\footnotesize,
+				xtick={10, 50, 100}]
+				\addplot[color=blue, mark=*,line width=1.2pt] coordinates {
+					(10,18) (50,42) (100,60)
+				};
+				\addplot[color=red, mark=square*,line width=1.2pt] coordinates {
+					(10,5) (50,15) (100,20)
+				};
+				\legend{RFT, SFT};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Performance Improvement vs. Dataset Size}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{When to Use RFT vs. SFT}
+	\begin{block}{Decision Factors:}
+		\begin{itemize}
+			\item \textbf{Data Availability}: RFT for limited data; SFT for abundant labeled data
+			\item \textbf{Task Complexity}: RFT for tasks with clear success criteria
+			\item \textbf{Performance Goals}: RFT for continuous improvement; SFT for stable results
+			\item \textbf{Verifiability}: RFT excels when outcomes can be objectively measured
+			\item \textbf{Resource Constraints}: SFT simpler to implement initially but requires more data
+		\end{itemize}
+	\end{block}
+	\begin{block}{Real-World Applications:}
+		\begin{itemize}
+			\item \textbf{Coding Assistants}: RFT trains models to write code that compiles and passes tests
+			\item \textbf{Data Analysis}: RFT improves query generation that produces correct results
+			\item \textbf{Reasoning Tasks}: RFT enhances step-by-step problem-solving capabilities
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{Accelerating Reasoning Models with Turbo LoRA}
+
+\begin{frame}
+	\frametitle{The Challenge with Reasoning Models}
+	\begin{block}{Throughput Issues:}
+		\begin{itemize}
+			\item Reasoning models push AI's problem-solving capabilities
+			\item But advanced reasoning comes at a cost: slow throughput
+			\item Reasoning models "think" by generating many tokens
+			\item Multiple intermediate computations increase processing time
+			\item Production deployment requires addressing these challenges
+		\end{itemize}
+	\end{block}
+	\begin{block}{Real-World Performance Bottlenecks}
+		\begin{itemize}
+			\item Reasoning models can be 2-3x slower than comparable non-reasoning models
+			\item Higher latency significantly impacts user experience and cost-efficiency
+			\item Traditional acceleration methods often compromise reasoning quality
+			\item Need specialized solutions that preserve reasoning ability while boosting speed
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{LoRA and Turbo LoRA}
+	\begin{block}{LoRA: Low-Rank Adaptation}
+		\begin{itemize}
+			\item Fine-tunes large models with small set of trainable parameters
+			\item Preserves original weights, maintaining pre-trained knowledge
+			\item Dramatically reduces memory requirements for fine-tuning
+			\item Enables efficient adaptation of models for specialized tasks
+		\end{itemize}
+	\end{block}
+	\begin{block}{Turbo LoRA: 2-4x Faster Reasoning}
+		\begin{itemize}
+			\item Uses speculative decoding along with proprietary optimizations
+			\item Predicts multiple tokens in parallel, then verifies them
+			\item Maintains output quality while generating text faster
+			\item Result: Multiple tokens per step instead of one at a time
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{How Turbo LoRA Works}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Technical Implementation}
+				\begin{enumerate}
+					\item Small, fast "speculator" model predicts several tokens in parallel
+					\item Main model verifies predicted tokens
+					\item Correct tokens are instantly used
+					\item Only incorrect tokens need recalculation
+				\end{enumerate}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Practical Benefits}
+				\begin{itemize}
+					\item Zero difference in final output quality
+					\item Applied to DeepSeek-R1-distill-qwen-32b model
+					\item Demonstrated 2-3x throughput improvement
+					\item Can be applied to any reasoning model
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+	\vspace{0.5cm}
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[thick,->] (0,0) -- (9,0) node[right] {Time};
+			% Standard generation
+			\draw[thick] (0,1) -- (9,1);
+			\foreach \x in {1,2,3,4,5,6,7,8}
+				\draw[fill=gray!30] (\x,0.7) rectangle (\x+0.5,1.3) node[pos=.5] {$t_\x$};
+			% Turbo generation
+			\draw[thick] (0,2.5) -- (9,2.5);
+			\draw[fill=blue!20] (1,2.2) rectangle (4,2.8) node[pos=.5] {$t_{1-4}$};
+			\draw[fill=blue!20] (4.5,2.2) rectangle (7.5,2.8) node[pos=.5] {$t_{5-8}$};
+			% Labels
+			\node at (-1,1) {Standard:};
+			\node at (-1,2.5) {Turbo:};
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Benefits of Turbo for Large Reasoning Models}
+	\begin{block}{Making Real-Time AI Feasible}
+		\begin{itemize}
+			\item 2-3x speedup makes reasoning models viable for:
+			\begin{itemize}
+				\item AI-powered customer support
+			\end{itemize}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Benefits of Turbo for Large Reasoning Models (cont.)}
+	\begin{block}{Making Real-Time AI Feasible (cont.)}
+		\begin{itemize}
+			\item 2-3x speedup makes reasoning models viable for:
+			\begin{itemize}
+				\item AI copilots for developers
+				\item Healthcare AI assistants
+			\end{itemize}
+			\item Lower GPU costs: fewer GPUs needed for the same workload
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Benefits of Turbo for Large Reasoning Models (cont.)}
+	\begin{block}{Real-World Impact}
+		\begin{itemize}
+			\item Makes inference of reasoning models feasible for almost any organization
+			\item Typical inference setup: 2-3x reduction in required GPU capacity
+			\item Cost savings scale with deployment size - larger deployments save more
+		\end{itemize}
+	\end{block}
+	\begin{block}{Implementation}
+		\begin{itemize}
+			\item Enables use of smaller, more efficient models without sacrificing capability
+			\item For detailed implementation tutorial: \texttt{https://predibase.com/blog/turbo-lora}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{Tutorial: Using RFT to Write CUDA Kernels}
+
+\begin{frame}
+	\frametitle{Why GPU Code Generation is Hard}
+	\begin{block}{Challenges of GPU Coding:}
+		\begin{itemize}
+			\item \textbf{Parallel Architecture}: Harnessing hundreds/thousands of cores
+			\item \textbf{Memory Hierarchy}: Balancing register, shared, and global memory
+			\item \textbf{Thread Synchronization}: Avoiding race conditions and deadlocks
+			\item Minor errors can degrade performance or crash the GPU
+			\item Teaching AI best practices limited by scarcity of examples
+		\end{itemize}
+	\end{block}
+	\begin{block}{Why Traditional Approaches Fall Short}
+		\begin{itemize}
+			\item Limited high-quality examples of CUDA/Triton kernels available
+			\item Supervised learning requires thousands of code pairs for effective learning
+			\item GPU code is highly technical with many edge cases and optimizations
+			\item Subtle syntax and semantic errors can cause compilation failures
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Why RFT is Well-Suited for Code Generation}
+	\begin{block}{Perfect Fit for RL:}
+		\begin{itemize}
+			\item \textbf{No Large Labeled Dataset Needed}: Started with just handful of examples
+			\item \textbf{Code is Verifiable}: Can deterministically test compilation and correctness
+			\item \textbf{Large Search Space}: RL balances exploring new implementations with exploiting proven approaches
+			\item Started with just 13 hand-curated examples of PyTorch functions
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Setting Up the CUDA Task: Minimal Dataset}
+	\begin{block}{Dataset Composition}
+		\begin{itemize}
+			\item Each example contained:
+			\begin{itemize}
+				\item A PyTorch function (e.g., matrix multiply or activation function)
+				\item A set of test cases to verify correctness
+			\end{itemize}
+			\item Example functions included matrix operations, activations, and element-wise operations
+			\item Test cases covered edge cases, different sizes, and boundary conditions
+		\end{itemize}
+	\end{block}
+	\begin{block}{PyTorch to Triton Example}
+	\begin{itemize}
+		\item \textbf{PyTorch function:}
+		\begin{quote}
+		\texttt{def add(x, y): return x + y}
+		\end{quote}
+	\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Setting Up the CUDA Task: Triton Implementation}
+	\begin{block}{Target Triton Kernel}
+	\begin{quote}
+	\texttt{@triton.jit}\\  
+	\texttt{def add\_kernel(x\_ptr, y\_ptr, output\_ptr, n\_elements):}\\  
+	\texttt{\phantom{xxxx}pid = tl.program\_id(0)}\\  
+	\texttt{\phantom{xxxx}block\_size = 128}\\  
+	\texttt{\phantom{xxxx}offsets = pid * block\_size + tl.arange(0, block\_size)}
+	\end{quote}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Setting Up the CUDA Task: Triton Implementation (cont.)}
+	\begin{block}{Target Triton Kernel (cont.)}
+	\begin{quote}
+	\texttt{\phantom{xxxx}mask = offsets < n\_elements}\\  
+	\texttt{\phantom{xxxx}x = tl.load(x\_ptr + offsets, mask=mask)}\\  
+	\texttt{\phantom{xxxx}y = tl.load(y\_ptr + offsets, mask=mask)}\\  
+	\texttt{\phantom{xxxx}output = x + y}\\  
+	\texttt{\phantom{xxxx}tl.store(output\_ptr + offsets, output, mask=mask)}
+	\end{quote}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Defining Rewards for Code Generation}
+	\begin{block}{Multi-Level Reward Structure (1)}
+		\begin{description}
+			\item[\textbf{Reward 1:}] \textbf{Formatting (0.1-0.3)}
+		\end{description}
+		\begin{itemize}
+			\item Code structure, imports, tags
+			\item Partial credit for good Triton semantics
+			\item Reasonable variable names and code organization
+		\end{itemize}
+	\end{block}
+	\begin{block}{Multi-Level Reward Structure (2)}
+		\begin{description}
+			\item[\textbf{Reward 2:}] \textbf{Compilation (0.3-0.6)}
+		\end{description}
+		\begin{itemize}
+			\item Code that executes without errors
+			\item No runtime exceptions or syntax errors
+			\item Properly imports required dependencies
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Defining Rewards for Code Generation (cont.)}
+	\begin{block}{Multi-Level Reward Structure (3)}
+		\begin{description}
+			\item[\textbf{Reward 3:}] \textbf{Correctness (0.6-1.0)}
+		\end{description}
+	\end{block}
+	\begin{itemize}
+		\item Output matches PyTorch function on test inputs
+		\item Anti-reward-hacking measures (checking for hardcoded outputs)
+		\item Proper handling of edge cases and different input shapes
+	\end{itemize}
+	\vspace{0.5em}
+	\begin{block}{Benefits of This Reward Structure}
+		\begin{itemize}
+			\item Provides clear progression path for the model
+			\item Allows partial credit for partial solutions
+			\item Mirrors how humans learn to code
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Example Implementation of Reward Function}
+	\begin{block}{Reward Function Logic - Part 1}
+		\begin{enumerate}
+			\item \textbf{Formatting check:}
+			\begin{itemize}
+				\item If code has proper Triton syntax $\rightarrow$ reward = 0.2
+			\end{itemize}
+			\item \textbf{Compilation check:}
+			\begin{itemize}
+				\item If code compiles successfully $\rightarrow$ reward = 0.5
+				\item If compilation fails $\rightarrow$ return current reward
+			\end{itemize}
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Example Implementation of Reward Function (cont.)}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Reward Function Logic - Part 2}
+				\begin{enumerate}\setcounter{enumi}{2}
+					\item \textbf{Correctness check:}
+					\begin{itemize}
+						\item For each test case, compare PyTorch and Triton results
+						\item If outputs match $\rightarrow$ reward = 1.0
+						\item Otherwise $\rightarrow$ reward = 0.6
+					\end{itemize}
+				\end{enumerate}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Key Elements}
+				\begin{itemize}
+					\item Multi-stage evaluation process
+					\item Each stage builds on the previous
+					\item Partial rewards for partial successes
+					\item Deterministic verification through test cases
+					\item Numerically scaled from 0.0 to 1.0
+					\item Multiple test cases ensure robustness
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Training Loop and Results}
+	\begin{block}{How GRPO (Gradient-based Reward Policy Optimization) Works:}
+		\begin{itemize}
+			\item \textbf{Generate}: Multiple completions per prompt using sampling
+			\item \textbf{Evaluate}: Run reward checks on each completion
+			\item \textbf{Update}: Compute advantages and backpropagate signals
+			\item \textbf{Repeat}: Model refines strategy to maximize rewards
+		\end{itemize}
+	\end{block}
+	\begin{block}{Results:}
+		\begin{itemize}
+			\item 53\% accuracy on held-out examples after 5,000 steps
+			\item 3x higher correctness rate than OpenAI o1 and DeepSeek-R1
+			\item 4x better performance than Claude 3.7 Sonnet
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Performance Comparison with Leading Models}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{center}
+				\begin{tikzpicture}[scale=0.75, transform shape]
+					\begin{axis}[
+						ybar,
+						axis lines=middle,
+						bar width=15pt,
+						ylabel=Accuracy (\%),
+						symbolic x coords={RFT, o1, DeepSeek-R1, Claude 3.7},
+						xtick=data,
+						ytick={0,10,20,30,40,50,60},
+						ymin=0,
+						ymax=60,
+						nodes near coords,
+						width=7cm,
+						height=5cm,
+						legend style={at={(0.5,-0.15)}, anchor=north},
+						]
+						\addplot[fill=blue!70] coordinates {(RFT, 53) (o1, 18) (DeepSeek-R1, 17) (Claude 3.7, 13)};
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Learning Progression}
+				\begin{itemize}
+					\item Initial success rate: 5\%
+					\item After 1,000 steps: 22\%
+					\item After 3,000 steps: 41\%
+					\item Final accuracy: 53\%
+					\item Model learned generalizable patterns beyond the training examples
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+	\begin{block}{Key Success Factors}
+		\begin{itemize}
+			\item \textbf{Reward Design}: Multi-level rewards provided clear learning signals
+			\item \textbf{Test Variety}: Diverse test cases prevented overfitting
+			\item \textbf{Anti-Reward Hacking}: Prevented the model from simply memorizing outputs
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{Practical RFT Implementation with Unsloth}
+
+\begin{frame}
+	\frametitle{Hands-On RFT Workflow with Unsloth}
+	\begin{block}{What is Unsloth?}
+		\begin{itemize}
+			\item Open-source library for efficient fine-tuning of large language models
+			\item Enables fine-tuning even on limited hardware (3GB+ VRAM)
+			\item Supports QLoRA, LoRA, RLHF, GRPO and other fine-tuning methods
+			\item 2-4x faster training than standard implementations
+		\end{itemize}
+	\end{block}
+	\begin{block}{Development Workflow}
+		\begin{enumerate}
+			\item \textbf{Setup Environment}: Install dependencies and import libraries
+			\item \textbf{Select Model \& Method}: Choose base model and fine-tuning approach
+			\item \textbf{Prepare Dataset}: Format data for training
+			\item \textbf{Configure Training}: Set hyperparameters and training settings
+			\item \textbf{Train \& Evaluate}: Run fine-tuning and monitor performance
+			\item \textbf{Deploy}: Save and serve the fine-tuned model
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 1: Environment Setup}
+	\begin{block}{Install Unsloth}
+		\begin{mintedbox}{bash}
+# Basic installation
+pip install unsloth
+
+# For specific CUDA versions
+# pip install unsloth[cu118]  # CUDA 11.8
+# pip install unsloth[cu121]  # CUDA 12.1
+		\end{mintedbox}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 1: Required Libraries}
+	\begin{mintedbox}{python}
+# Import necessary libraries
+import torch
+from unsloth import FastLanguageModel
+from datasets import load_dataset
+from transformers import TrainingArguments
+	\end{mintedbox}
+	\begin{block}{Performance Optimizations}
+		\begin{itemize}
+			\item CPU offloading for devices with limited VRAM
+			\item Flash Attention 2 for faster training (on supported GPUs)
+			\item Gradient checkpointing to trade compute for memory
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 2: Selecting Model \& Method}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Load Base Model}
+			\begin{mintedbox}{python}
+max_seq_length = 2048
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name = "unsloth/llama-3.1-8b-bnb-4bit",
+    max_seq_length = max_seq_length,
+    load_in_4bit = True)
+			\end{mintedbox}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Choose Fine-Tuning Method}
+				\begin{itemize}
+					\item \textbf{QLoRA}: 4-bit quantization with LoRA (least resources)
+					\item \textbf{LoRA}: Low-Rank Adaptation (balance of quality/resources)
+					\item \textbf{GRPO}: For DeepSeek-style reinforcement learning
+					\item \textbf{Full Finetuning}: For maximum quality on high-end hardware
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 2: Configuring LoRA for RFT}
+	\begin{block}{RFT-Specific Configuration}
+		\begin{itemize}
+			\item Target key-value attention layers for most efficient adaptation
+			\item Use rank 16-32 for complex tasks like reinforcement learning
+			\item Add dropout to prevent overfitting to reward signals
+			\item Enable gradient checkpointing to save memory during training
+		\end{itemize}
+	\end{block}
+	\begin{block}{Code Implementation}
+		\begin{mintedbox}{python}
+model = FastLanguageModel.get_peft_model(
+    model,
+    r = 16,  # LoRA rank
+    target_modules = ["q_proj", "k_proj", "v_proj", "o_proj"],
+    alpha = 16,  # LoRA alpha
+    dropout = 0.05,  # Add regularization
+    use_gradient_checkpointing = True)
+		\end{mintedbox}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 3: Dataset Preparation}
+	\begin{block}{Dataset Format for RFT}
+		\begin{itemize}
+			\item Format datasets with input and expected output
+			\item Include reward signals or success criteria
+			\item Ensure diverse examples across different scenarios
+		\end{itemize}
+	\end{block}
+	\begin{mintedbox}{python}
+dataset = [
+    {"input": "Solve: $2x + 3 = 7$", 
+     "output": "To solve for x:\n$2x + 3 = 7$\n$2x = 4$\n$x = 2$"},
+    {"input": "What is the capital of France?", 
+     "output": "The capital of France is Paris."},
+    # ...more examples
+]
+	\end{mintedbox}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 3: Dataset Formatting for Training}
+	\begin{block}{Applying the Proper Template}
+		\begin{itemize}
+			\item Use the model's specific chat template format
+			\item Ensure special tokens are correctly applied
+			\item Set appropriate sequence length for your use case
+		\end{itemize}
+	\end{block}
+	\begin{mintedbox}{python}
+formatted_dataset = FastLanguageModel.format_dataset(
+    dataset,
+    tokenizer,
+    max_seq_length,
+    add_special_tokens = True,
+    template = "<s>[INST] {input} [/INST] {output} </s>"
+)
+	\end{mintedbox}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 4: Configure Training Parameters}
+	\begin{block}{Training Arguments}
+	\begin{mintedbox}{python}
+training_args = TrainingArguments(
+    output_dir = "./results",
+    num_train_epochs = 3,
+    per_device_train_batch_size = 4,
+    gradient_accumulation_steps = 2,
+    learning_rate = 2e-4,
+    weight_decay = 0.01,
+    max_grad_norm = 0.3,
+    logging_steps = 10,
+    save_total_limit = 3,
+)
+	\end{mintedbox}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 4: Hyperparameter Selection for RFT}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Key Hyperparameters}
+				\begin{itemize}
+					\item \textbf{LoRA Rank (r)}: Between 8-32; higher gives more expressive power
+					\item \textbf{LoRA Alpha}: Usually same as rank
+					\item \textbf{Learning Rate}: 2e-4 to 5e-4 for QLoRA
+					\item \textbf{Training Epochs}: 2-5 for small datasets
+					\item \textbf{Dropout}: 0.05-0.1 for regularization
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Avoid Overfitting in RFT}
+				\begin{itemize}
+					\item Increase dropout if showing signs of overfitting
+					\item Implement early stopping by monitoring loss
+					\item Use a validation set to evaluate generalization
+					\item Add weight decay for regularization
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 5: Training Execution}
+	\begin{block}{Execute Training}
+		\begin{mintedbox}{python}
+from trl import SFTTrainer
+
+trainer = SFTTrainer(
+    model = model,
+    train_dataset = formatted_dataset,
+    args = training_args,
+    tokenizer = tokenizer,
+    packing = False,
+    dataset_text_field = "text",
+)
+		\end{mintedbox}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 5: Training Process and Monitoring}
+	\begin{block}{Run Training}
+		\begin{mintedbox}{python}
+# Start training
+trainer.train()
+		\end{mintedbox}
+	\end{block}
+	\begin{block}{Monitor Key Metrics}
+		\begin{itemize}
+			\item \textbf{Training Loss}: Should steadily decrease but not plateau too quickly
+			\item \textbf{Validation Loss}: Monitor for signs of overfitting (uptick in validation loss)
+			\item \textbf{Learning Rate}: Record effect of LR variations on performance
+			\item \textbf{GPU Utilization}: Verify efficient resource usage
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 6: Evaluation}
+	\begin{block}{Evaluate Model Performance}
+		\begin{itemize}
+			\item Load the fine-tuned model for inference
+			\item Create structured test prompts
+			\item Compare with baseline model on same inputs
+			\item Test diverse scenarios and edge cases
+			\item Measure inference speed and resource usage
+		\end{itemize}
+	\end{block}
+	\begin{mintedbox}{python}
+# Example test inference
+prompt = "Solve: 3x + 5 = 20"
+response = model.generate_text(prompt)
+# Result: "To solve: 3x + 5 = 20
+Subtract 5: 3x = 15
+Divide by 3: x = 5"
+	\end{mintedbox}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 6: Deployment}
+	\begin{block}{Save and Deploy Model}
+		\begin{itemize}
+			\item Save trained model and tokenizer
+			\item Optimize for inference (e.g., ONNX conversion) 
+			\item Configure deployment environment
+			\item Set up monitoring and logging
+		\end{itemize}
+	\end{block}
+	\begin{mintedbox}{python}
+# Save the fine-tuned model
+model.save_pretrained("./my-rft-model")
+tokenizer.save_pretrained("./my-rft-model")
+	\end{mintedbox}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Step 6: Continuous Improvement}
+	\begin{block}{Ongoing Refinement}
+		\begin{itemize}
+			\item Collect user feedback and model outputs in production
+			\item Update reward functions based on real-world performance
+			\item Expand training dataset with edge cases discovered in deployment
+			\item Periodically retrain to incorporate improvements
+		\end{itemize}
+	\end{block}
+	\begin{block}{Long-term Maintenance}
+		\begin{itemize}
+			\item Monitor for performance degradation over time
+			\item Keep track of new best practices in RFT 
+			\item Evaluate benefits of updating to newer base models
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Ready-to-Use Unsloth Notebooks}
+	\begin{block}{Available Implementation Resources}
+		\begin{itemize}
+			\item Unsloth provides ready-to-use notebooks for various models and tasks
+			\item Accessible via Google Colab or Kaggle (free GPU resources)
+			\item Includes both fine-tuning and GRPO (RFT) implementations
+		\end{itemize}
+	\end{block}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Popular Models}
+				\begin{itemize}
+					\item Llama 3.1 (8B)
+					\item Phi-4 (14B)
+					\item Mistral (7B, 22B)
+					\item Qwen 2.5 (3B, 14B)
+					\item Gemma 2 (2B, 9B)
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Specialized Variants}
+				\begin{itemize}
+					\item Qwen2.5-Coder (14B)
+					\item CodeGemma (7B)
+					\item Llama 3.2 Vision
+					\item Qwen2-VL (7B)
+					\item Phi-3 Medium
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+	\begin{center}
+		\small{Notebooks available at: \texttt{https://docs.unsloth.ai/get-started/unsloth-notebooks}}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Dataset Construction for RFT}
+	\begin{block}{Getting Started}
+		\begin{itemize}
+			\item Identify the purpose of your dataset: chat dialogues, structured tasks, or domain-specific data
+			\item Define desired output style: JSON, HTML, text, code or specific languages
+			\item Determine data sources: Hugging Face datasets, Wikipedia, or synthetic data
+		\end{itemize}
+	\end{block}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Common Data Formats}
+				\begin{itemize}
+					\item Text-only format
+					\item Instruction-Input-Output
+					\item ShareGPT format (multi-turn)
+					\item ChatML (OpenAI style)
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Dataset Requirements}
+				\begin{itemize}
+					\item Minimum: 100 examples
+					\item Optimal: 1,000+ examples
+					\item Quality over quantity
+					\item Can combine multiple datasets
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{RFT Implementation: Common Pitfalls (1)}
+	\begin{itemize}
+		\item \textbf{Problem}: Model produces generic or refuses to generate responses\\
+		  \textbf{Solution}: Increase LoRA rank and alpha; ensure diverse training data
+		\item \textbf{Problem}: Catastrophic forgetting (model loses pre-trained capabilities)\\
+		  \textbf{Solution}: Lower learning rate; add regularization
+		\item \textbf{Problem}: High training loss that doesn't converge\\
+		  \textbf{Solution}: Check dataset formatting; reduce sequence length
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{RFT Implementation: Common Pitfalls (2)}
+	\begin{itemize}
+		\item \textbf{Problem}: Out of memory errors during training\\
+		  \textbf{Solution}: Enable gradient checkpointing; reduce batch size
+		\item \textbf{Problem}: Model generates hallucinations\\
+		  \textbf{Solution}: Implement reward functions that penalize fabrications
+		\item \textbf{Problem}: Training is unstable with reward signals\\
+		  \textbf{Solution}: Normalize rewards; use PPO with appropriate clipping
+	\end{itemize}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}
+	\frametitle{Key Takeaways}
+	\begin{block}{The Power of Reinforcement Fine-Tuning:}
+		\begin{itemize}
+			\item \textbf{Self-Improvement is Real}: Models can surpass static approaches through iterative rewards
+			\item \textbf{RFT Shines With Little Data}: Outperforms SFT when labeled data is scarce
+			\item \textbf{Reasoning Doesn't Need to be Slow}: Turbo LoRA increases throughput by 2-4x
+			\item \textbf{Real-World Feasibility}: Moving beyond academic exercises to practical applications
+		\end{itemize}
+	\end{block}
+	\begin{block}{Paradigm Shift in AI Development}
+		\begin{itemize}
+			\item Traditional LLM training: massive datasets $\rightarrow$ static deployment
+			\item RFT approach: minimal datasets + reward functions $\rightarrow$ continuous improvement
+			\item Fundamentally changes how we think about model improvement cycles
+			\item Smaller teams can now compete with resource-rich organizations
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Implementation Strategy - Core Components}
+	\begin{block}{Core Components Needed}
+		\begin{enumerate}
+			\item Base model (open-source LLM)
+			\item Reward function definition
+			\item Prompt dataset (can be small)
+			\item RL algorithm (RLHF, GRPO, etc.)
+			\item Evaluation framework
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Implementation Strategy - Best Practices}
+	\begin{block}{Best Practices}
+		\begin{itemize}
+			\item Start with small, clear reward functions
+			\item Build comprehensive validation tests
+			\item Implement anti-reward-hacking measures
+			\item Monitor for emergent behaviors
+			\item Gradually increase complexity
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Next Steps with RFT}
+	\begin{block}{Getting Started:}
+		\begin{itemize}
+			\item Reinforcement fine-tuning marks a major leap in LLM development
+			\item Training through reward signals rather than labeled examples
+			\item End-to-end platforms make this approach accessible to developers
+			\item Focus on innovation rather than infrastructure complexities
+		\end{itemize}
+	\end{block}
+	\begin{block}{Areas Ripe for RFT Application}
+		\begin{itemize}
+			\item \textbf{Specialized Coding}: Domain-specific code generation (embedded systems, high-performance computing)
+			\item \textbf{Scientific Research}: Models that propose and validate hypotheses
+			\item \textbf{Reasoning Tasks}: Complex logical and mathematical problem-solving
+			\item \textbf{Education}: Adaptive tutoring systems that understand student gaps
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{}
+	\begin{center}
+		\LARGE Thank You!
+	\end{center}
+	\begin{center}
+		\large Questions?
+	\end{center}
+\end{frame}
+
+\end{document}

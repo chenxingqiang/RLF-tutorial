@@ -1,0 +1,15 @@
+# Ignore nested .git directories
+deep-learning-pytorch-huggingface/.git/
+
+# Common files to ignore
+.DS_Store
+*.log
+*.aux
+*.bcf
+*.run.xml
+*.listing
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
