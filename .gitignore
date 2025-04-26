@@ -1,5 +1,3 @@
-# Ignore nested .git directories
-deep-learning-pytorch-huggingface/.git/
 
 # Common files to ignore
 .DS_Store
@@ -13,3 +11,4 @@ deep-learning-pytorch-huggingface/.git/
 *.snm
 *.toc
 *.vrb
+_minted/*

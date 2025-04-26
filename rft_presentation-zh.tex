@@ -111,8 +111,8 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{强化学习简介 - 继续}
-	\begin{block}{自我提升范式（继续）}
+	\frametitle{强化学习简介 }
+	\begin{block}{自我提升范式}
 		\begin{itemize}
 			\item 为持续学习和更深层的推理能力打开了大门
 			\item AI不再是静态的实践—模型可以在部署后进化和适应
@@ -218,47 +218,47 @@
 			\hline
 			\textbf{因素} & \textbf{RFT} & \textbf{SFT} \\
 			\hline
-			Data Requirements & Minimal labeled data & Needs 1,000+ rows \\
+			数据需求 & 最少的标记数据 & 需要1,000+行数据 \\
 			\hline
-			Adaptability & Continuous improvement & Limited by labeled data \\
+			适应性 & 持续改进 & 受标记数据限制 \\
 			\hline
-			Exploration & Actively tries new strategies & Relies on fixed examples \\
+			探索能力 & 主动尝试新策略 & 依赖固定示例 \\
 			\hline
-			Performance & Continual progress & Reaches plateau \\
+			性能 & 持续进步 & 达到平台期 \\
 			\hline
-			Error Handling & Learns from mistakes & Repeats errors in data \\
+			错误处理 & 从错误中学习 & 重复数据中的错误 \\
 			\hline
-			Training Complexity & Higher (reward function) & Lower (just examples) \\
+			训练复杂度 & 较高（奖励函数） & 较低（仅需示例） \\
 			\hline
 		\end{tabular}
-		\caption{Comparison of RFT and SFT approaches}
+		\caption{RFT和SFT方法的比较}
 	\end{table}
 \end{frame}
 
 \begin{frame}
-	\frametitle{When RFT Wins}
-	\begin{block}{RFT Excels with Scarce Data}
+	\frametitle{RFT的优势场景}
+	\begin{block}{RFT在数据稀缺时表现出色}
 		\begin{itemize}
-			\item Removes need for labeled data, relies on objective correctness
-			\item Outperforms SFT with small datasets (dozens of examples)
-			\item Resists overfitting by learning robust strategies
-			\item Best use cases:
+			\item 无需标记数据，依靠客观正确性
+			\item 在小型数据集（几十个示例）上优于SFT
+			\item 通过学习稳健策略抵抗过拟合
+			\item 最佳应用场景：
 			\begin{itemize}
-				\item Code Transpilation (e.g., Java to Python)
-				\item Game Strategy (Chess, Wordle)
-				\item Medical Diagnosis (learning from feedback at decision points)
+				\item 代码转译（如Java到Python）
+				\item 游戏策略（国际象棋，Wordle）
+				\item 医疗诊断（在决策点从反馈中学习）
 			\end{itemize}
-		\end{itemize}
-	\end{block}
+			\end{itemize}
+		\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Quantitative Performance Comparison}
-	\begin{block}{RFT vs SFT by Dataset Size}
+	\frametitle{定量性能比较}
+	\begin{block}{按数据集大小比较RFT与SFT}
 		\begin{itemize}
-			\item \textbf{10 Examples}: RFT improved base model by 18\%, SFT showed minimal gains
-			\item \textbf{50 Examples}: RFT showed 42\% improvement over baseline
-			\item \textbf{100 Examples}: RFT improvement jumped to 60\%, 3x better than SFT
+			\item \textbf{10个示例}：RFT使基础模型提升18\%，SFT仅显示最小增益
+			\item \textbf{50个示例}：RFT相比基准线显示42\%的提升
+			\item \textbf{100个示例}：RFT提升跃升至60\%，比SFT好3倍
 			\item 数据集越小，RFT相比SFT的优势越明显
 		\end{itemize}
 	\end{block}
@@ -430,7 +430,7 @@
 \end{frame}
 
 \begin{frame}[shrink=10]
-	\frametitle{大型推理模型Turbo的优势（续）}
+	\frametitle{大型推理模型Turbo的优势 }
 	\begin{block}{实际影响}
 		\begin{itemize}
 			\item 使几乎任何组织都能负担推理模型的运行
@@ -446,28 +446,28 @@
 	\end{block}
 \end{frame}
 
-\section{Tutorial: Using RFT to Write CUDA Kernels}
+\section{教程: 使用RFT编写CUDA核心}
 
 \begin{frame}[shrink=10]
-	\frametitle{Why GPU Code Generation is Hard}
+	\frametitle{GPU代码生成为何困难}
 	\begin{columns}[T]
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Challenges of GPU Coding:}
+			\begin{block}{GPU编程的挑战:}
 				\begin{itemize}\setlength{\itemsep}{0em}
-					\item \textbf{Parallel Architecture}: Many cores
-					\item \textbf{Memory Hierarchy}: Multiple levels
-					\item \textbf{Thread Synchronization}: Complex
-					\item Small errors → large consequences
+					\item \textbf{并行架构}: 多核心
+					\item \textbf{内存层次}: 多个层级
+					\item \textbf{线程同步}: 复杂
+					\item 小错误 → 大后果
 				\end{itemize}
 			\end{block}
 		\end{column}
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Traditional Approaches Fail:}
+			\begin{block}{传统方法的失败:}
 				\begin{itemize}\setlength{\itemsep}{0em}
-					\item Few high-quality CUDA examples
-					\item SFT needs thousands of pairs
-					\item Many edge cases to handle
-					\item Subtle errors cause failures
+					\item 高质量CUDA示例稀少
+					\item SFT需要成千个配对
+					\item 需要处理多种边缘情况
+					\item 细微错误导致失败
 				\end{itemize}
 			\end{block}
 		\end{column}
@@ -477,21 +477,21 @@
 \mode<all>{\vspace{-0.5cm}}
 
 \begin{frame}[t]
-	\frametitle{Why RFT is Perfect for Code Generation}
+	\frametitle{RFT为何适合代码生成}
 	\begin{columns}[T]
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Key Advantages:}
+			\begin{block}{关键优势:}
 				\begin{itemize}
-					\item No large dataset needed
-					\item Code is verifiable
+					\item 无需大型数据集
+					\item 代码可验证
 				\end{itemize}
 			\end{block}
 		\end{column}
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Implementation:}
+			\begin{block}{实现:}
 				\begin{itemize}
-					\item Started with 13 examples
-					\item RL explores intelligently
+					\item 从13个示例开始
+					\item 强化学习智能探索
 				\end{itemize}
 			\end{block}
 		\end{column}
@@ -499,21 +499,21 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Setting Up the CUDA Task: Minimal Dataset}
-	\begin{block}{Dataset Composition}
+	\frametitle{设置CUDA任务: 最小数据集}
+	\begin{block}{数据集组成}
 		\begin{itemize}
-			\item Each example contained:
+			\item 每个示例包含:
 			\begin{itemize}
-				\item A PyTorch function (e.g., matrix multiply or activation function)
-				\item A set of test cases to verify correctness
+				\item 一个PyTorch函数（如矩阵乘法或激活函数）
+				\item 一组用于验证正确性的测试用例
 			\end{itemize}
-			\item Example functions included matrix operations, activations, and element-wise operations
-			\item Test cases covered edge cases, different sizes, and boundary conditions
+			\item 示例函数包括矩阵运算、激活函数和元素级运算
+			\item 测试用例涵盖边缘情况、不同大小和边界条件
 		\end{itemize}
 	\end{block}
-	\begin{block}{PyTorch to Triton Example}
+	\begin{block}{PyTorch到Triton示例}
 	\begin{itemize}
-		\item \textbf{PyTorch function:}
+		\item \textbf{PyTorch函数:}
 		\begin{quote}
 		\texttt{def add(x, y): return x + y}
 		\end{quote}
@@ -535,8 +535,8 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Setting Up the CUDA Task: Triton Implementation (cont.)}
-	\begin{block}{Target Triton Kernel (cont.)}
+	\frametitle{设置CUDA任务: Triton实现（继续）}
+	\begin{block}{目标Triton核心（继续）}
 	\begin{quote}
 	\texttt{\phantom{xxxx}mask = offsets < n\_elements}\\  
 	\texttt{\phantom{xxxx}x = tl.load(x\_ptr + offsets, mask=mask)}\\  
@@ -548,92 +548,92 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Defining Rewards for Code Generation}
-	\begin{block}{Multi-Level Reward Structure (1)}
+	\frametitle{为代码生成定义奖励}
+	\begin{block}{多层次奖励结构 (1)}
 		\begin{description}
-			\item[\textbf{Reward 1:}] \textbf{Formatting (0.1-0.3)}
+			\item[\textbf{奖励1:}] \textbf{格式化 (0.1-0.3)}
 		\end{description}
 		\begin{itemize}
-			\item Code structure, imports, tags
-			\item Partial credit for good Triton semantics
-			\item Reasonable variable names and code organization
+			\item 代码结构、导入和标签
+			\item 为良好Triton语义给予部分分数
+			\item 合理的变量名和代码组织
 		\end{itemize}
 	\end{block}
-	\begin{block}{Multi-Level Reward Structure (2)}
+	\begin{block}{多层次奖励结构 (2)}
 		\begin{description}
-			\item[\textbf{Reward 2:}] \textbf{Compilation (0.3-0.6)}
+			\item[\textbf{奖励2:}] \textbf{编译 (0.3-0.6)}
 		\end{description}
 		\begin{itemize}
-			\item Code that executes without errors
-			\item No runtime exceptions or syntax errors
-			\item Properly imports required dependencies
+			\item 无错误执行的代码
+			\item 无运行时异常或语法错误
+			\item 正确导入所需依赖
 		\end{itemize}
 	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Defining Rewards for Code Generation (cont.)}
-	\begin{block}{Multi-Level Reward Structure (3)}
+	\frametitle{为代码生成定义奖励（继续）}
+	\begin{block}{多层次奖励结构 (3)}
 		\begin{description}
-			\item[\textbf{Reward 3:}] \textbf{Correctness (0.6-1.0)}
+			\item[\textbf{奖励3:}] \textbf{正确性 (0.6-1.0)}
 		\end{description}
 	\end{block}
 	\begin{itemize}
-		\item Output matches PyTorch function on test inputs
-		\item Anti-reward-hacking measures (checking for hardcoded outputs)
-		\item Proper handling of edge cases and different input shapes
+		\item 输出与测试输入上的PyTorch函数匹配
+		\item 反奖励黑客措施（检查硬编码输出）
+		\item 正确处理边缘情况和不同输入形状
 	\end{itemize}
 	\vspace{0.5em}
-	\begin{block}{Benefits of This Reward Structure}
+	\begin{block}{该奖励结构的益处}
 		\begin{itemize}
-			\item Provides clear progression path for the model
-			\item Allows partial credit for partial solutions
-			\item Mirrors how humans learn to code
+			\item 为模型提供清晰的进阶路径
+			\item 允许为部分解决方案给予部分分数
+			\item 模拟人类学习编码的方式
 		\end{itemize}
 	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Example Implementation of Reward Function}
-	\begin{block}{Reward Function Logic - Part 1}
+	\frametitle{奖励函数的示例实现}
+	\begin{block}{奖励函数逻辑 - 第1部分}
 		\begin{enumerate}
-			\item \textbf{Formatting check:}
+			\item \textbf{格式检查:}
 			\begin{itemize}
-				\item If code has proper Triton syntax $\rightarrow$ reward = 0.2
+				\item 如果代码有正确的Triton语法 $\rightarrow$ 奖励 = 0.2
 			\end{itemize}
-			\item \textbf{Compilation check:}
+			\item \textbf{编译检查:}
 			\begin{itemize}
-				\item If code compiles successfully $\rightarrow$ reward = 0.5
-				\item If compilation fails $\rightarrow$ return current reward
+				\item 如果代码成功编译 $\rightarrow$ 奖励 = 0.5
+				\item 如果编译失败 $\rightarrow$ 返回当前奖励
 			\end{itemize}
 		\end{enumerate}
 	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Example Implementation of Reward Function (cont.)}
+	\frametitle{奖励函数的示例实现（继续）}
 	\begin{columns}
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Reward Function Logic - Part 2}
+			\begin{block}{奖励函数逻辑 - 第2部分}
 				\begin{enumerate}\setcounter{enumi}{2}
-					\item \textbf{Correctness check:}
+					\item \textbf{正确性检查:}
 					\begin{itemize}
-						\item For each test case, compare PyTorch and Triton results
-						\item If outputs match $\rightarrow$ reward = 1.0
-						\item Otherwise $\rightarrow$ reward = 0.6
+						\item 对每个测试用例，比较PyTorch和Triton结果
+						\item 如果输出匹配 $\rightarrow$ 奖励 = 1.0
+						\item 否则 $\rightarrow$ 奖励 = 0.6
 					\end{itemize}
 				\end{enumerate}
 			\end{block}
 		\end{column}
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Key Elements}
+			\begin{block}{关键要素}
 				\begin{itemize}
-					\item Multi-stage evaluation process
-					\item Each stage builds on the previous
-					\item Partial rewards for partial successes
-					\item Deterministic verification through test cases
-					\item Numerically scaled from 0.0 to 1.0
-					\item Multiple test cases ensure robustness
+					\item 多阶段评估过程
+					\item 每个阶段建立在前一阶段之上
+					\item 部分成功给予部分奖励
+					\item 通过测试用例进行确定性验证
+					\item 数值从0.0到1.0缩放
+					\item 多个测试用例确保稳健性
 				\end{itemize}
 			\end{block}
 		\end{column}
@@ -641,26 +641,26 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Training Loop and Results}
-	\begin{block}{How GRPO (Gradient-based Reward Policy Optimization) Works:}
+	\frametitle{训练循环和结果}
+	\begin{block}{GRPO（基于梯度的奖励策略优化）如何工作:}
 		\begin{itemize}
-			\item \textbf{Generate}: Multiple completions per prompt using sampling
-			\item \textbf{Evaluate}: Run reward checks on each completion
-			\item \textbf{Update}: Compute advantages and backpropagate signals
-			\item \textbf{Repeat}: Model refines strategy to maximize rewards
+			\item \textbf{生成}: 使用采样为每个提示生成多个完成
+			\item \textbf{评估}: 对每个完成运行奖励检查
+			\item \textbf{更新}: 计算优势并反向传播信号
+			\item \textbf{重复}: 模型精细策略以最大化奖励
 		\end{itemize}
 	\end{block}
-	\begin{block}{Results:}
+	\begin{block}{结果:}
 		\begin{itemize}
-			\item 53\% accuracy on held-out examples after 5,000 steps
-			\item 3x higher correctness rate than OpenAI o1 and DeepSeek-R1
-			\item 4x better performance than Claude 3.7 Sonnet
+			\item 在5,000步后对保留示例的准确率为53\%
+			\item 比OpenAI o1和DeepSeek-R1高出3倍的正确率
+			\item 比Claude 3.7 Sonnet性能好4倍
 		\end{itemize}
 	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{\textbf{Performance Comparison}: RFT vs. Leading Models}
+	\frametitle{\textbf{性能比较}: RFT与领先模型对比}
 	\vspace{-0.2cm}
 	\begin{columns}[T]
 		\begin{column}{0.48\textwidth}
@@ -670,7 +670,7 @@
 						ybar,
 						axis lines=left,
 						bar width=20pt,
-						ylabel={\textbf{Accuracy (\%)}},
+						ylabel={\textbf{准确率 (\%)}},
 						symbolic x coords={RFT, o1, DeepSeek-R1, Claude 3.7},
 						xtick=data,
 						xtick style={draw=none},
@@ -689,13 +689,13 @@
 			\end{center}
 		\end{column}
 		\begin{column}{0.48\textwidth}
-			\begin{block}{\textbf{RFT Training Progression}}
+			\begin{block}{\textbf{RFT训练进展}}
 				\begin{itemize}\setlength{\itemsep}{0.4em}
-					\item \textbf{Starting point}: 5\% accuracy
-					\item \textbf{Early training} (1,000 steps): 22\%
-					\item \textbf{Mid-training} (3,000 steps): 41\%
-					\item \textbf{Final result}: \textcolor{blue}{53\% accuracy}
-					\item Model developed generalizable patterns beyond the limited training examples
+					\item \textbf{起始点}: 5\%准确率
+					\item \textbf{早期训练} (1,000步): 22\%
+					\item \textbf{中期训练} (3,000步): 41\%
+					\item \textbf{最终结果}: \textcolor{blue}{53\%准确率}
+					\item 模型开发了超越有限训练示例的可泛化模式
 				\end{itemize}
 			\end{block}
 		\end{column}
@@ -703,14 +703,14 @@
 \end{frame}
 
 \begin{frame}[shrink=15]
-	\frametitle{Performance Comparison with Leading Models}
+	\frametitle{与领先模型的性能比较}
 	\begin{columns}[T]
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Results:}
+			\begin{block}{结果:}
 				\begin{itemize}\setlength{\itemsep}{0.3em}
-					\item 53\% accuracy on held-out examples after 5,000 steps
-					\item 3x higher correctness rate than OpenAI o1 and DeepSeek-R1
-					\item 4x better performance than Claude 3.7 Sonnet
+					\item 在5,000步后对保留示例的准确率为53\%
+					\item 比OpenAI o1和DeepSeek-R1高出3倍的正确率
+					\item 比Claude 3.7 Sonnet性能好4倍
 				\end{itemize}
 			\end{block}
 		\end{column}
@@ -912,12 +912,12 @@ training_args = TrainingArguments(
 			\end{block}
 		\end{column}
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Avoid Overfitting in RFT}
+			\begin{block}{RFT中避免过拟合}
 				\begin{itemize}
-					\item Increase dropout if showing signs of overfitting
-					\item Implement early stopping by monitoring loss
-					\item Use a validation set to evaluate generalization
-					\item Add weight decay for regularization
+					\item 如果出现过拟合迹象，增加dropout
+					\item 通过监控损失实现早停
+					\item 使用验证集评估泛化能力
+					\item 添加权重衰减进行正则化
 				\end{itemize}
 			\end{block}
 		\end{column}
@@ -925,8 +925,8 @@ training_args = TrainingArguments(
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Step 5: Training Execution}
-	\begin{block}{Execute Training}
+	\frametitle{步骤5: 执行训练}
+	\begin{block}{执行训练}
 		\begin{mintedbox}{python}
 from trl import SFTTrainer
 
@@ -943,32 +943,32 @@ trainer = SFTTrainer(
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Step 5: Training Process and Monitoring}
-	\begin{block}{Run Training}
+	\frametitle{步骤5: 训练过程与监控}
+	\begin{block}{运行训练}
 		\begin{mintedbox}{python}
 # Start training
 trainer.train()
 		\end{mintedbox}
 	\end{block}
-	\begin{block}{Monitor Key Metrics}
+	\begin{block}{监控关键指标}
 		\begin{itemize}
-			\item \textbf{Training Loss}: Should steadily decrease but not plateau too quickly
-			\item \textbf{Validation Loss}: Monitor for signs of overfitting (uptick in validation loss)
-			\item \textbf{Learning Rate}: Record effect of LR variations on performance
-			\item \textbf{GPU Utilization}: Verify efficient resource usage
+			\item \textbf{训练损失}: 应当稳定下降，但不应过快达到平台期
+			\item \textbf{验证损失}: 监控过拟合迹象（验证损失上升）
+			\item \textbf{学习率}: 记录学习率变化对性能的影响
+			\item \textbf{GPU利用率}: 验证资源使用效率
 		\end{itemize}
 	\end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Step 6: Evaluation}
-	\begin{block}{Evaluate Model Performance}
+	\frametitle{步骤6: 评估}
+	\begin{block}{评估模型性能}
 		\begin{itemize}
-			\item Load the fine-tuned model for inference
-			\item Create structured test prompts
-			\item Compare with baseline model on same inputs
-			\item Test diverse scenarios and edge cases
-			\item Measure inference speed and resource usage
+			\item 加载微调后的模型进行推理
+			\item 创建结构化测试提示
+			\item 在相同输入上与基线模型进行比较
+			\item 测试多样化场景和边缘案例
+			\item 测量推理速度和资源使用情况
 		\end{itemize}
 	\end{block}
 	\begin{mintedbox}{python}
@@ -982,13 +982,13 @@ Divide by 3: x = 5"
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Step 6: Deployment}
-	\begin{block}{Save and Deploy Model}
+	\frametitle{步骤6: 部署}
+	\begin{block}{保存和部署模型}
 		\begin{itemize}
-			\item Save trained model and tokenizer
-			\item Optimize for inference (e.g., ONNX conversion) 
-			\item Configure deployment environment
-			\item Set up monitoring and logging
+			\item 保存训练好的模型和分词器
+			\item 优化推理性能（例如，ONNX转换） 
+			\item 配置部署环境
+			\item 设置监控和日志记录
 		\end{itemize}
 	\end{block}
 	\begin{mintedbox}{python}
@@ -999,36 +999,36 @@ tokenizer.save_pretrained("./my-rft-model")
 \end{frame}
 
 \begin{frame}
-	\frametitle{Step 6: Continuous Improvement}
-	\begin{block}{Ongoing Refinement}
+	\frametitle{步骤6: 持续改进}
+	\begin{block}{持续的精细化}
 		\begin{itemize}
-			\item Collect user feedback and model outputs in production
-			\item Update reward functions based on real-world performance
-			\item Expand training dataset with edge cases discovered in deployment
-			\item Periodically retrain to incorporate improvements
+			\item 在生产环境中收集用户反馈和模型输出
+			\item 根据真实世界性能更新奖励函数
+			\item 使用部署中发现的边缘案例扩展训练数据集
+			\item 定期重新训练以纳入改进
 		\end{itemize}
 	\end{block}
-	\begin{block}{Long-term Maintenance}
+	\begin{block}{长期维护}
 		\begin{itemize}
-			\item Monitor for performance degradation over time
-			\item Keep track of new best practices in RFT 
-			\item Evaluate benefits of updating to newer base models
+			\item 监控随时间推移的性能退化
+			\item 跟踪强化微调领域的新最佳实践 
+			\item 评估更新到新的基础模型的收益
 		\end{itemize}
 	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Ready-to-Use Unsloth Notebooks}
-	\begin{block}{Available Implementation Resources}
+	\frametitle{可直接使用的Unsloth笔记本}
+	\begin{block}{可用的实现资源}
 		\begin{itemize}
-			\item Unsloth provides ready-to-use notebooks for various models and tasks
-			\item Accessible via Google Colab or Kaggle (free GPU resources)
-			\item Includes both fine-tuning and GRPO (RFT) implementations
+			\item Unsloth提供了适用于各种模型和任务的现成笔记本
+			\item 可通过Google Colab或Kaggle访问（免费GPU资源）
+			\item 包含监督微调和GRPO（强化微调）实现
 		\end{itemize}
 	\end{block}
 	\begin{columns}
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Popular Models}
+			\begin{block}{流行模型}
 				\begin{itemize}
 					\item Llama 3.1 (8B)
 					\item Phi-4 (14B)
@@ -1039,7 +1039,7 @@ tokenizer.save_pretrained("./my-rft-model")
 			\end{block}
 		\end{column}
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Specialized Variants}
+			\begin{block}{专用变体}
 				\begin{itemize}
 					\item Qwen2.5-Coder (14B)
 					\item CodeGemma (7B)
@@ -1051,34 +1051,34 @@ tokenizer.save_pretrained("./my-rft-model")
 		\end{column}
 	\end{columns}
 	\begin{center}
-		\small{Notebooks available at: \texttt{https://docs.unsloth.ai/get-started/unsloth-notebooks}}
+		\small{笔记本可在以下地址获取: \texttt{https://docs.unsloth.ai/get-started/unsloth-notebooks}}
 	\end{center}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Dataset Construction for RFT}
-	\begin{block}{Getting Started}
+	\frametitle{RFT的数据集构建}
+	\begin{block}{入门指南}
 		\begin{itemize}
-			\item Identify the purpose of your dataset: chat dialogues, structured tasks, or domain-specific data
-			\item Define desired output style: JSON, HTML, text, code or specific languages
-			\item Determine data sources: Hugging Face datasets, Wikipedia, or synthetic data
+			\item 确定数据集的目的: 聊天对话、结构化任务或领域特定数据
+			\item 定义期望的输出风格: JSON、HTML、文本、代码或特定语言
+			\item 确定数据来源: Hugging Face数据集、维基百科或合成数据
 		\end{itemize}
 	\end{block}
 	\begin{columns}
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Common Data Formats}
+			\begin{block}{常见数据格式}
 				\begin{itemize}
-					\item Text-only format
-					\item Instruction-Input-Output
-					\item ShareGPT format (multi-turn)
-					\item ChatML (OpenAI style)
+					\item 纯文本格式
+					\item 指令-输入-输出
+					\item ShareGPT格式（多回合）
+					\item ChatML（OpenAI风格）
 				\end{itemize}
 			\end{block}
 		\end{column}
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Dataset Requirements}
+			\begin{block}{数据集要求}
 				\begin{itemize}
-					\item Minimum: 100 examples
+					\item 最少: 100个示例
 					\item Optimal: 1,000+ examples
 					\item Quality over quantity
 					\item Can combine multiple datasets
