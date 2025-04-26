@@ -7,6 +7,44 @@
 % Use the modified OVGU theme with Zhijiang Lab logo
 \usepackage{beamer_ovgu_169}
 
+% Global settings to prevent content overflow
+\usepackage{pgfplots}
+\usetikzlibrary{patterns}
+
+% Optimize slide layout to prevent overflow
+\setbeamersize{text margin left=0.5cm, text margin right=0.5cm}
+\setbeamertemplate{frametitle}[default][center]
+
+% Set global frame option to automatically handle overflow
+\makeatletter
+\define@key{beamerframe}{shrink}[100]{%
+  \def\beamer@shrinkpercentage{#1}}
+\makeatother
+\BeforeBeginEnvironment{frame}{%
+  \setkeys{beamerframe}{shrink=45}%
+}
+
+% Extra adjustment for long frames
+\newenvironment{compactframe}{
+  \begin{frame}[shrink=60]
+  \setbeamerfont{itemize/enumerate body}{size=\scriptsize}
+  \setbeamerfont{itemize/enumerate subbody}{size=\scriptsize}
+}{\end{frame}}
+
+% Adjust spacing throughout the presentation
+\addtobeamertemplate{frametitle}{}{\vspace{-0.3cm}}
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\setlength{\partopsep}{0pt}
+
+% Adjust beamer spacing settings to be more compact
+\AtBeginDocument{
+  \setbeamerfont{itemize/enumerate body}{size=\small}
+  \setbeamerfont{itemize/enumerate subbody}{size=\small}
+  \setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+}
+
 % 禁用参考文献功能，避免bbl文件缺失警告
 \providecommand{\bibfont}{}
 \renewcommand{\bibfont}{\normalfont\footnotesize}
@@ -77,31 +115,38 @@
 	\end{block}
 \end{frame}
 
-\begin{frame}
-	\frametitle{DeepSeek-R1: Technical Implementation}
-	\begin{block}{Active Exploration Mechanisms}
-		\begin{itemize}
-			\item Instead of passively ingesting training data, performs active exploration
-			\item Training involves not just error backpropagation but reward-based feedback loops
-			\item \textbf{Exploration Strategy}: Balances trying new approaches with exploiting proven methods
-			\item \textbf{Multi-Objective Optimization}: Learns to balance accuracy, efficiency, and creativity
-		\end{itemize}
-	\end{block}
-	\begin{block}{Democratizing Reasoning Models}
-		\begin{itemize}
-			\item Open-sourcing enables engineering teams to customize their own reasoning models
-			\item Released weights allow deeper inspection and understanding of model behavior
-			\item Community contributions accelerate innovation in reasoning capabilities
-		\end{itemize}
-	\end{block}
+\begin{frame}[shrink=10]
+	\frametitle{\textbf{DeepSeek-R1}: Technical Implementation}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Active Exploration Mechanisms}
+				\begin{itemize}\setlength{\itemsep}{0em}
+					\item Uses \textbf{active exploration} instead of passive learning
+					\item Employs \textbf{reward-based feedback loops}
+					\item Balances exploration with exploitation
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Democratizing Reasoning Models}
+				\begin{itemize}\setlength{\itemsep}{0em}
+					\item \textbf{Open-source design} for customization
+					\item \textbf{Released weights} for transparency
+					\item \textbf{Community-driven} innovation
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[shrink=20]
 	\frametitle{DeepSeek-R1 vs. Traditional Models}
+	\vspace{-0.2cm}
 	\begin{block}{Key Differences:}
+		\setlength{\itemsep}{0.5em}
 		\begin{itemize}
-			\item Traditional models train once on static datasets and freeze parameters
-			\item DeepSeek-R1 takes a dynamic approach to learning
+			\item \textbf{Traditional:} Static training, frozen parameters
+			\item \textbf{DeepSeek-R1:} Dynamic learning approach
 		\end{itemize}
 	\end{block}
 \end{frame}
@@ -144,8 +189,8 @@
 \begin{frame}
 	\frametitle{RFT vs. SFT Comparison}
 	\begin{table}
-		\centering
-		\begin{tabular}{|l|l|l|}
+		\footnotesize
+		\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|}
 			\hline
 			\textbf{Factor} & \textbf{RFT} & \textbf{SFT} \\
 			\hline
@@ -159,7 +204,7 @@
 			\hline
 			Error Handling & Learns from mistakes & Repeats errors in data \\
 			\hline
-			Training Complexity & Higher (needs reward function) & Lower (just needs examples) \\
+			Training Complexity & Higher (reward function) & Lower (just examples) \\
 			\hline
 		\end{tabular}
 		\caption{Comparison of RFT and SFT approaches}
@@ -276,22 +321,25 @@
 			\item Enables efficient adaptation of models for specialized tasks
 		\end{itemize}
 	\end{block}
-	\begin{block}{Turbo LoRA: 2-4x Faster Reasoning}
+\end{frame}
+
+\begin{frame}[shrink=15]
+	\frametitle{Turbo LoRA: 2-4x Faster Reasoning}
+	\begin{block}{Key Features}
 		\begin{itemize}
 			\item Uses speculative decoding along with proprietary optimizations
 			\item Predicts multiple tokens in parallel, then verifies them
 			\item Maintains output quality while generating text faster
-			\item Result: Multiple tokens per step instead of one at a time
 		\end{itemize}
 	\end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[shrink=20]
 	\frametitle{How Turbo LoRA Works}
-	\begin{columns}
+	\begin{columns}[T]
 		\begin{column}{0.48\textwidth}
 			\begin{block}{Technical Implementation}
-				\begin{enumerate}
+				\begin{enumerate}\setlength{\itemsep}{0.5em}
 					\item Small, fast "speculator" model predicts several tokens in parallel
 					\item Main model verifies predicted tokens
 					\item Correct tokens are instantly used
@@ -301,7 +349,7 @@
 		\end{column}
 		\begin{column}{0.48\textwidth}
 			\begin{block}{Practical Benefits}
-				\begin{itemize}
+				\begin{itemize}\setlength{\itemsep}{0.5em}
 					\item Zero difference in final output quality
 					\item Applied to DeepSeek-R1-distill-qwen-32b model
 					\item Demonstrated 2-3x throughput improvement
@@ -310,8 +358,9 @@
 			\end{block}
 		\end{column}
 	\end{columns}
-	\vspace{0.5cm}
+	\vspace{0.2cm}
 	\begin{center}
+		\resizebox{0.85\textwidth}{!}{
 		\begin{tikzpicture}
 			\draw[thick,->] (0,0) -- (9,0) node[right] {Time};
 			% Standard generation
@@ -326,6 +375,7 @@
 			\node at (-1,1) {Standard:};
 			\node at (-1,2.5) {Turbo:};
 		\end{tikzpicture}
+		}
 	\end{center}
 \end{frame}
 
@@ -374,37 +424,54 @@
 
 \section{Tutorial: Using RFT to Write CUDA Kernels}
 
-\begin{frame}
+\begin{frame}[shrink=10]
 	\frametitle{Why GPU Code Generation is Hard}
-	\begin{block}{Challenges of GPU Coding:}
-		\begin{itemize}
-			\item \textbf{Parallel Architecture}: Harnessing hundreds/thousands of cores
-			\item \textbf{Memory Hierarchy}: Balancing register, shared, and global memory
-			\item \textbf{Thread Synchronization}: Avoiding race conditions and deadlocks
-			\item Minor errors can degrade performance or crash the GPU
-			\item Teaching AI best practices limited by scarcity of examples
-		\end{itemize}
-	\end{block}
-	\begin{block}{Why Traditional Approaches Fall Short}
-		\begin{itemize}
-			\item Limited high-quality examples of CUDA/Triton kernels available
-			\item Supervised learning requires thousands of code pairs for effective learning
-			\item GPU code is highly technical with many edge cases and optimizations
-			\item Subtle syntax and semantic errors can cause compilation failures
-		\end{itemize}
-	\end{block}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Challenges of GPU Coding:}
+				\begin{itemize}\setlength{\itemsep}{0em}
+					\item \textbf{Parallel Architecture}: Many cores
+					\item \textbf{Memory Hierarchy}: Multiple levels
+					\item \textbf{Thread Synchronization}: Complex
+					\item Small errors → large consequences
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Traditional Approaches Fail:}
+				\begin{itemize}\setlength{\itemsep}{0em}
+					\item Few high-quality CUDA examples
+					\item SFT needs thousands of pairs
+					\item Many edge cases to handle
+					\item Subtle errors cause failures
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Why RFT is Well-Suited for Code Generation}
-	\begin{block}{Perfect Fit for RL:}
-		\begin{itemize}
-			\item \textbf{No Large Labeled Dataset Needed}: Started with just handful of examples
-			\item \textbf{Code is Verifiable}: Can deterministically test compilation and correctness
-			\item \textbf{Large Search Space}: RL balances exploring new implementations with exploiting proven approaches
-			\item Started with just 13 hand-curated examples of PyTorch functions
-		\end{itemize}
-	\end{block}
+\mode<all>{\vspace{-0.5cm}}
+
+\begin{frame}[t]
+	\frametitle{Why RFT is Perfect for Code Generation}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Key Advantages:}
+				\begin{itemize}
+					\item No large dataset needed
+					\item Code is verifiable
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Implementation:}
+				\begin{itemize}
+					\item Started with 13 examples
+					\item RL explores intelligently
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -569,74 +636,100 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Performance Comparison with Leading Models}
-	\begin{columns}
+	\frametitle{\textbf{Performance Comparison}: RFT vs. Leading Models}
+	\vspace{-0.2cm}
+	\begin{columns}[T]
 		\begin{column}{0.48\textwidth}
 			\begin{center}
-				\begin{tikzpicture}[scale=0.75, transform shape]
+				\begin{tikzpicture}[scale=0.8, transform shape]
 					\begin{axis}[
 						ybar,
-						axis lines=middle,
-						bar width=15pt,
-						ylabel=Accuracy (\%),
+						axis lines=left,
+						bar width=20pt,
+						ylabel={\textbf{Accuracy (\%)}},
 						symbolic x coords={RFT, o1, DeepSeek-R1, Claude 3.7},
 						xtick=data,
+						xtick style={draw=none},
 						ytick={0,10,20,30,40,50,60},
 						ymin=0,
 						ymax=60,
-						nodes near coords,
-						width=7cm,
+						nodes near coords={\textbf{\pgfmathprintnumber\pgfplotspointmeta}},
+						width=6.5cm,
 						height=5cm,
-						legend style={at={(0.5,-0.15)}, anchor=north},
+						major grid style={draw=gray!30},
+						grid=major,
 						]
-						\addplot[fill=blue!70] coordinates {(RFT, 53) (o1, 18) (DeepSeek-R1, 17) (Claude 3.7, 13)};
+						\addplot[fill=blue!80, draw=blue!90!black] coordinates {(RFT, 53) (o1, 18) (DeepSeek-R1, 17) (Claude 3.7, 13)};
 					\end{axis}
 				\end{tikzpicture}
 			\end{center}
 		\end{column}
 		\begin{column}{0.48\textwidth}
-			\begin{block}{Learning Progression}
-				\begin{itemize}
-					\item Initial success rate: 5\%
-					\item After 1,000 steps: 22\%
-					\item After 3,000 steps: 41\%
-					\item Final accuracy: 53\%
-					\item Model learned generalizable patterns beyond the training examples
+			\begin{block}{\textbf{RFT Training Progression}}
+				\begin{itemize}\setlength{\itemsep}{0.4em}
+					\item \textbf{Starting point}: 5\% accuracy
+					\item \textbf{Early training} (1,000 steps): 22\%
+					\item \textbf{Mid-training} (3,000 steps): 41\%
+					\item \textbf{Final result}: \textcolor{blue}{53\% accuracy}
+					\item Model developed generalizable patterns beyond the limited training examples
 				\end{itemize}
 			\end{block}
 		\end{column}
 	\end{columns}
-	\begin{block}{Key Success Factors}
-		\begin{itemize}
-			\item \textbf{Reward Design}: Multi-level rewards provided clear learning signals
-			\item \textbf{Test Variety}: Diverse test cases prevented overfitting
-			\item \textbf{Anti-Reward Hacking}: Prevented the model from simply memorizing outputs
-		\end{itemize}
-	\end{block}
+\end{frame}
+
+\begin{frame}[shrink=15]
+	\frametitle{Performance Comparison with Leading Models}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Results:}
+				\begin{itemize}\setlength{\itemsep}{0.3em}
+					\item 53\% accuracy on held-out examples after 5,000 steps
+					\item 3x higher correctness rate than OpenAI o1 and DeepSeek-R1
+					\item 4x better performance than Claude 3.7 Sonnet
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Key Success Factors}
+				\begin{itemize}\setlength{\itemsep}{0.3em}
+					\item \textbf{Reward Design}: Multi-level rewards provided clear learning signals
+					\item \textbf{Test Variety}: Diverse test cases prevented overfitting
+					\item \textbf{Anti-Reward Hacking}: Prevented the model from simply memorizing outputs
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \section{Practical RFT Implementation with Unsloth}
 
-\begin{frame}
+\begin{compactframe}
 	\frametitle{Hands-On RFT Workflow with Unsloth}
-	\begin{block}{What is Unsloth?}
-		\begin{itemize}
-			\item Open-source library for efficient fine-tuning of large language models
-			\item Enables fine-tuning even on limited hardware (3GB+ VRAM)
-			\item Supports QLoRA, LoRA, RLHF, GRPO and other fine-tuning methods
-			\item 2-4x faster training than standard implementations
-		\end{itemize}
-	\end{block}
-	\begin{block}{Development Workflow}
-		\begin{enumerate}
-			\item \textbf{Setup Environment}: Install dependencies and import libraries
-			\item \textbf{Select Model \& Method}: Choose base model and fine-tuning approach
-			\item \textbf{Prepare Dataset}: Format data for training
-			\item \textbf{Configure Training}: Set hyperparameters and training settings
-			\item \textbf{Train \& Evaluate}: Run fine-tuning and monitor performance
-			\item \textbf{Deploy}: Save and serve the fine-tuned model
-		\end{enumerate}
-	\end{block}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{What is Unsloth?}
+				\begin{itemize}
+					\item Open-source library for efficient LLM fine-tuning
+					\item Works on limited hardware (3GB+ VRAM)
+					\item Supports QLoRA, LoRA, RLHF, GRPO
+					\item 2-4x faster than standard methods
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Development Workflow}
+				\begin{enumerate}
+					\item \textbf{Setup}: Install dependencies
+					\item \textbf{Model}: Choose base model
+					\item \textbf{Data}: Format for training
+					\item \textbf{Configure}: Set parameters
+					\item \textbf{Train}: Run fine-tuning
+					\item \textbf{Deploy}: Save and serve
+				\end{enumerate}
+			\end{block}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}[fragile]

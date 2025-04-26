@@ -1,5 +1,4 @@
-🧬
-Fine-tuning Guide
+🧬Fine-tuning Guide
 Learn all the basics and best practices of fine-tuning. Beginner-friendly.
 
 1. Understand Fine-tuning
