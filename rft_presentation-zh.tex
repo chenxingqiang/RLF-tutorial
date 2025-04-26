@@ -1,0 +1,1198 @@
+% beamer幻灯片类，采用16:9宽高比
+\documentclass[aspectratio=169]{beamer}
+
+% 加载所有软件包
+\input{packages}
+
+% 添加中文支持
+\usepackage{xeCJK}
+\usepackage{ctex}
+\setCJKmainfont{STSong}
+\setCJKsansfont{STHeiti}
+\setCJKmonofont{STFangsong}
+
+% 确保所有字体都能正确显示中文
+\newfontfamily\zhfont{STSong}
+\newfontfamily\zhsffont{STHeiti}
+\newfontfamily\zhttfont{STFangsong}
+
+% 设置beamer字体
+\usefonttheme{professionalfonts}
+\setbeamerfont{title}{family=\zhsffont}
+\setbeamerfont{frametitle}{family=\zhsffont}
+\setbeamerfont{framesubtitle}{family=\zhsffont}
+
+% 使用修改后的OVGU主题，带有之江实验室标志
+\usepackage{beamer_ovgu_169}
+
+% 全局设置以防止内容溢出
+\usepackage{pgfplots}
+\usetikzlibrary{patterns}
+
+% 优化幻灯片布局以防止溢出
+\setbeamersize{text margin left=0.5cm, text margin right=0.5cm}
+\setbeamertemplate{frametitle}[default][center]
+
+% 设置全局框架选项以自动处理溢出
+\makeatletter
+\define@key{beamerframe}{shrink}[100]{%
+  \def\beamer@shrinkpercentage{#1}}
+\makeatother
+\BeforeBeginEnvironment{frame}{% 
+  \setkeys{beamerframe}{shrink=45}% 
+}
+
+% 全局设置以处理中文内容溢出问题
+\addtobeamertemplate{frametitle}{}{\vspace{-0.2cm}}
+\addtobeamertemplate{block begin}{}{\vspace{-0.2cm}}
+\addtobeamertemplate{itemize item}{}{\vspace{-0.1cm}}
+
+% 对长框架的额外调整
+\newenvironment{compactframe}{
+  \begin{frame}[shrink=60]
+  \setbeamerfont{itemize/enumerate body}{size=\scriptsize}
+  \setbeamerfont{itemize/enumerate subbody}{size=\scriptsize}
+}{\end{frame}}
+
+% Adjust spacing throughout the presentation
+\addtobeamertemplate{frametitle}{}{\vspace{-0.3cm}}
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\setlength{\partopsep}{0pt}
+
+% Adjust beamer spacing settings to be more compact
+\AtBeginDocument{
+  \setbeamerfont{itemize/enumerate body}{size=\small}
+  \setbeamerfont{itemize/enumerate subbody}{size=\small}
+  \setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+}
+
+% 禁用参考文献功能，避免bbl文件缺失警告
+\providecommand{\bibfont}{}
+\renewcommand{\bibfont}{\normalfont\footnotesize}
+\AtEndDocument{\def\bibfont{}}
+\let\printbibliography\relax
+
+\title[强化微调指南 2025]{强化微调完全指南}
+\author{陈星强}
+\institute[亿铸智能]{
+	亿铸智能
+    \\
+	中国杭州
+}
+\date[2025-04-25]{2025年4月25日}
+
+\begin{document}
+
+\begin{frame}
+	\maketitle
+\end{frame}
+
+\begin{frame}[label=inhalt]{内容概述}
+	\tableofcontents
+\end{frame}
+
+\section{使用DeepSeek-R1和强化学习重塑AI}
+
+\begin{frame}
+	\frametitle{强化学习简介}
+	\begin{block}{自我提升范式}
+		\begin{itemize}
+			\item 强化学习引入了一种基于反馈驱动的AI训练机制
+			\item 相比依赖标记样本，强化学习代理通过以下方式学习：
+			\begin{itemize}
+				\item \textbf{探索}：模型尝试多种策略或行动
+				\item \textbf{奖励}：每个行动产生指导未来选择的奖励信号
+			\end{itemize}
+			\item 更接近人类通过尝试、错误和反馈自然学习的方式
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{强化学习简介 - 继续}
+	\begin{block}{自我提升范式（继续）}
+		\begin{itemize}
+			\item 为持续学习和更深层的推理能力打开了大门
+			\item AI不再是静态的实践—模型可以在部署后进化和适应
+		\end{itemize}
+	\end{block}
+	\begin{block}{从静态到动态学习}
+		\begin{itemize}
+			\item 传统方法依赖大量标记数据集进行记忆
+			\item 强化学习将焦点转移到学习策略和推理模式
+			\item “环境”可以是任何提供反馈信号指导改进的场景
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DeepSeek-R1的重要性}
+	\begin{block}{DeepSeek-R1：一个为推理而设计的模型}
+		\begin{itemize}
+			\item \textbf{自适应奖励结构}：多重奖励函数聚焦于准确性、效率性和创造性
+			\item \textbf{迭代精化}：基于奖励的反馈循环强调实践中最有效的方法
+			\item \textbf{突破性能障碍}：持续学习使其能够超越传统大语言模型
+			\item \textbf{开源优势}：与OpenAI闭源的O1不同，DeepSeek-R1共享模型权重和训练方法
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[shrink=10]
+	\frametitle{\textbf{DeepSeek-R1}: 技术实现}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{主动探索机制}
+				\begin{itemize}\setlength{\itemsep}{0em}
+					\item 使用\textbf{主动探索}而非被动学习
+					\item 采用\textbf{基于奖励的反馈循环}
+					\item 平衡探索与利用
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{推理模型民主化}
+				\begin{itemize}\setlength{\itemsep}{0em}
+					\item \textbf{开源设计}便于自定义
+					\item \textbf{发布模型权重}保证透明度
+					\item \textbf{社区驱动}的创新
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[shrink=20]
+	\frametitle{DeepSeek-R1 与传统模型对比}
+	\vspace{-0.2cm}
+	\begin{block}{关键差异：}
+		\setlength{\itemsep}{0.5em}
+		\begin{itemize}
+			\item \textbf{传统模型：} 静态训练，固定参数
+			\item \textbf{DeepSeek-R1：} 动态学习方法
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DeepSeek-R1 与传统模型对比 (继续)}
+	\begin{block}{DeepSeek-R1 优势：}
+		\begin{itemize}
+			\item 动态学习，响应需求变化
+			\item 通过奖励学习，减少对标记数据的依赖
+			\item 通过持续学习降低停滞风险
+		\end{itemize}
+	\end{block}
+	\begin{block}{关键见解：}
+		\begin{itemize}
+			\item “一次性训练完成”模式正在成为过去式
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{强化微调与监督微调对比}
+
+\begin{frame}
+	\frametitle{什么是强化微调(RFT)？}
+	\begin{block}{将微调与强化学习相结合}
+		\begin{itemize}
+			\item RFT结合了预训练大语言模型与基于反馈的强化学习的优势
+			\item 核心过程：
+			\begin{enumerate}
+				\item 从具有通用知识的预训练模型开始
+				\item 为目标指标定义奖励函数
+				\item 使用强化学习技术进行迭代微调
+			\end{enumerate}
+			\item 使用最少的数据实现开源大语言模型的自定义
+			\item 将通用模型转变为针对特定任务的强大推理模型
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{RFT与SSFT对比}
+	\begin{table}
+		\footnotesize
+		\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|}
+			\hline
+			\textbf{因素} & \textbf{RFT} & \textbf{SFT} \\
+			\hline
+			Data Requirements & Minimal labeled data & Needs 1,000+ rows \\
+			\hline
+			Adaptability & Continuous improvement & Limited by labeled data \\
+			\hline
+			Exploration & Actively tries new strategies & Relies on fixed examples \\
+			\hline
+			Performance & Continual progress & Reaches plateau \\
+			\hline
+			Error Handling & Learns from mistakes & Repeats errors in data \\
+			\hline
+			Training Complexity & Higher (reward function) & Lower (just examples) \\
+			\hline
+		\end{tabular}
+		\caption{Comparison of RFT and SFT approaches}
+	\end{table}
+\end{frame}
+
+\begin{frame}
+	\frametitle{When RFT Wins}
+	\begin{block}{RFT Excels with Scarce Data}
+		\begin{itemize}
+			\item Removes need for labeled data, relies on objective correctness
+			\item Outperforms SFT with small datasets (dozens of examples)
+			\item Resists overfitting by learning robust strategies
+			\item Best use cases:
+			\begin{itemize}
+				\item Code Transpilation (e.g., Java to Python)
+				\item Game Strategy (Chess, Wordle)
+				\item Medical Diagnosis (learning from feedback at decision points)
+			\end{itemize}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Quantitative Performance Comparison}
+	\begin{block}{RFT vs SFT by Dataset Size}
+		\begin{itemize}
+			\item \textbf{10 Examples}: RFT improved base model by 18\%, SFT showed minimal gains
+			\item \textbf{50 Examples}: RFT showed 42\% improvement over baseline
+			\item \textbf{100 Examples}: RFT improvement jumped to 60\%, 3x better than SFT
+			\item 数据集越小，RFT相比SFT的优势越明显
+		\end{itemize}
+	\end{block}
+	\begin{figure}[ht]
+		\centering
+		\begin{tikzpicture}[scale=0.5, transform shape]
+			\begin{axis}[
+				xlabel={数据集大小},
+				ylabel={性能提升 (\%)},
+				legend style={at={(0.5,-0.15)}, anchor=north},
+				ymin=0,
+				ymax=70,
+				grid=both,
+				minor tick num=1,
+				width=8cm,
+				height=5cm,
+				legend columns=2,
+				scaled ticks=false,
+				font=\footnotesize,
+				xtick={10, 50, 100}]
+				\addplot[color=blue, mark=*,line width=1.2pt] coordinates {
+					(10,18) (50,42) (100,60)
+				};
+				\addplot[color=red, mark=square*,line width=1.2pt] coordinates {
+					(10,5) (50,15) (100,20)
+				};
+				\legend{RFT, SFT};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{性能提升与数据集大小的关系}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[shrink=10]
+	\frametitle{何时使用RFT与SFT}
+	\begin{block}{决策因素:}
+		\begin{itemize}
+			\item \textbf{数据可用性}: 数据有限时选择RFT；有大量标记数据时选择SFT
+			\item \textbf{任务复杂性}: 对于有明确成功标准的任务，选择RFT
+			\item \textbf{性能目标}: 需要持续改进时选择RFT；需要稳定结果时选择SFT
+			\item \textbf{可验证性}: 当结果可以客观衡量时，RFT表现更佳
+			\item \textbf{资源限制}: SFT初期实施更简单，但需要更多数据
+		\end{itemize}
+	\end{block}
+	\begin{block}{实际应用:}
+		\begin{itemize}
+			\item \textbf{编程助手}: RFT训练模型编写可编译并通过测试的代码
+			\item \textbf{数据分析}: RFT改进生成准确结果的查询能力
+			\item \textbf{推理任务}: RFT增强逐步解决问题的能力
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{使用Turbo LoRA加速推理模型}
+
+\begin{frame}[shrink=10]
+	\frametitle{推理模型的挑战}
+	\begin{block}{处理量问题:}
+		\begin{itemize}
+			\item 推理模型推动了AI的解决问题能力
+			\item 但高级推理需要付出代价：处理速度缓慢
+			\item 推理模型通过生成大量标记来“思考”
+			\item 多重中间计算增加了处理时间
+			\item 生产部署需要解决这些挑战
+		\end{itemize}
+	\end{block}
+	\begin{block}{实际性能瓶颈}
+		\begin{itemize}
+			\item 推理模型比类似的非推理模型慢2-3倍
+			\item 更高的延迟显著影响用户体验和成本效率
+			\item 传统加速方法常常会损害推理质量
+			\item 需要特殊解决方案，在提高速度的同时保持推理能力
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[shrink=10]
+	\frametitle{LoRA和Turbo LoRA}
+	\begin{block}{LoRA: 低秩适应}
+		\begin{itemize}
+			\item 使用小型可训练参数集微调大型模型
+			\item 保留原始权重，维持预训练知识
+			\item 显著减少微调所需的内存要求
+			\item 支持模型高效适应专业任务
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[shrink=15]
+	\frametitle{Turbo LoRA: 推理速度提升2-4倍}
+	\begin{block}{主要特点}
+		\begin{itemize}
+			\item 使用推测解码以及专有优化
+			\item 并行预测多个标记，然后验证它们
+			\item 在更快生成文本的同时保持输出质量
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[shrink=20]
+	\frametitle{Turbo LoRA如何工作}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{技术实现}
+				\begin{enumerate}\setlength{\itemsep}{0.5em}
+					\item 小型、快速的“推测器”模型并行预测多个标记
+					\item 主模型验证预测的标记
+					\item 正确的标记立即被使用
+					\item 只有不正确的标记需要重新计算
+				\end{enumerate}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{实际效益}
+				\begin{itemize}\setlength{\itemsep}{0.5em}
+					\item 最终输出质量零差异
+					\item 应用于DeepSeek-R1-distill-qwen-32b模型
+					\item 实现了2-3倍的处理量提升
+					\item 可应用于任何推理模型
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+	\vspace{0.2cm}
+	\begin{center}
+		\resizebox{0.85\textwidth}{!}{
+		\begin{tikzpicture}
+			\draw[thick,->] (0,0) -- (9,0) node[right] {时间};
+			% Standard generation
+			\draw[thick] (0,1) -- (9,1);
+			\foreach \x in {1,2,3,4,5,6,7,8}
+				\draw[fill=gray!30] (\x,0.7) rectangle (\x+0.5,1.3) node[pos=.5] {$t_\x$};
+			% Turbo generation
+			\draw[thick] (0,2.5) -- (9,2.5);
+			\draw[fill=blue!20] (1,2.2) rectangle (4,2.8) node[pos=.5] {$t_{1-4}$};
+			\draw[fill=blue!20] (4.5,2.2) rectangle (7.5,2.8) node[pos=.5] {$t_{5-8}$};
+			% Labels
+			\node at (-1,1) {标准:};
+			\node at (-1,2.5) {Turbo:};
+		\end{tikzpicture}
+		}
+	\end{center}
+\end{frame}
+
+\begin{frame}[shrink=10]
+	\frametitle{Turbo对大型推理模型的益处}
+	\begin{block}{实现实时AI可行性}
+		\begin{itemize}
+			\item 2-3倍的速度提升使推理模型适用于:
+			\begin{itemize}
+				\item AI驱动的客户支持
+			\end{itemize}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[shrink=10]
+	\frametitle{Turbo对大型推理模型的益处（续）}
+	\begin{block}{实现实时AI可行性（续）}
+		\begin{itemize}
+			\item 2-3倍的速度提升使推理模型适用于:
+			\begin{itemize}
+				\item 开发者的AI副驾驶
+				\item 医疗保健AI助手
+			\end{itemize}
+			\item 降低GPU成本：相同工作量需要更少的GPU
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[shrink=10]
+	\frametitle{大型推理模型Turbo的优势（续）}
+	\begin{block}{实际影响}
+		\begin{itemize}
+			\item 使几乎任何组织都能负担推理模型的运行
+			\item 典型推理设置：所需GPU容量减少2-3倍
+			\item 成本节约随部署规模扩大而增加
+		\end{itemize}
+	\end{block}
+	\begin{block}{实施方法}
+		\begin{itemize}
+			\item 可使用更小、更高效的模型而不牺牲能力
+			\item 详细实施教程: \texttt{https://predibase.com/blog/turbo-lora}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{Tutorial: Using RFT to Write CUDA Kernels}
+
+\begin{frame}[shrink=10]
+	\frametitle{Why GPU Code Generation is Hard}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Challenges of GPU Coding:}
+				\begin{itemize}\setlength{\itemsep}{0em}
+					\item \textbf{Parallel Architecture}: Many cores
+					\item \textbf{Memory Hierarchy}: Multiple levels
+					\item \textbf{Thread Synchronization}: Complex
+					\item Small errors → large consequences
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Traditional Approaches Fail:}
+				\begin{itemize}\setlength{\itemsep}{0em}
+					\item Few high-quality CUDA examples
+					\item SFT needs thousands of pairs
+					\item Many edge cases to handle
+					\item Subtle errors cause failures
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\mode<all>{\vspace{-0.5cm}}
+
+\begin{frame}[t]
+	\frametitle{Why RFT is Perfect for Code Generation}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Key Advantages:}
+				\begin{itemize}
+					\item No large dataset needed
+					\item Code is verifiable
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Implementation:}
+				\begin{itemize}
+					\item Started with 13 examples
+					\item RL explores intelligently
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Setting Up the CUDA Task: Minimal Dataset}
+	\begin{block}{Dataset Composition}
+		\begin{itemize}
+			\item Each example contained:
+			\begin{itemize}
+				\item A PyTorch function (e.g., matrix multiply or activation function)
+				\item A set of test cases to verify correctness
+			\end{itemize}
+			\item Example functions included matrix operations, activations, and element-wise operations
+			\item Test cases covered edge cases, different sizes, and boundary conditions
+		\end{itemize}
+	\end{block}
+	\begin{block}{PyTorch to Triton Example}
+	\begin{itemize}
+		\item \textbf{PyTorch function:}
+		\begin{quote}
+		\texttt{def add(x, y): return x + y}
+		\end{quote}
+	\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Setting Up the CUDA Task: Triton Implementation}
+	\begin{block}{Target Triton Kernel}
+	\begin{quote}
+	\texttt{@triton.jit}\\  
+	\texttt{def add\_kernel(x\_ptr, y\_ptr, output\_ptr, n\_elements):}\\  
+	\texttt{\phantom{xxxx}pid = tl.program\_id(0)}\\  
+	\texttt{\phantom{xxxx}block\_size = 128}\\  
+	\texttt{\phantom{xxxx}offsets = pid * block\_size + tl.arange(0, block\_size)}
+	\end{quote}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Setting Up the CUDA Task: Triton Implementation (cont.)}
+	\begin{block}{Target Triton Kernel (cont.)}
+	\begin{quote}
+	\texttt{\phantom{xxxx}mask = offsets < n\_elements}\\  
+	\texttt{\phantom{xxxx}x = tl.load(x\_ptr + offsets, mask=mask)}\\  
+	\texttt{\phantom{xxxx}y = tl.load(y\_ptr + offsets, mask=mask)}\\  
+	\texttt{\phantom{xxxx}output = x + y}\\  
+	\texttt{\phantom{xxxx}tl.store(output\_ptr + offsets, output, mask=mask)}
+	\end{quote}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Defining Rewards for Code Generation}
+	\begin{block}{Multi-Level Reward Structure (1)}
+		\begin{description}
+			\item[\textbf{Reward 1:}] \textbf{Formatting (0.1-0.3)}
+		\end{description}
+		\begin{itemize}
+			\item Code structure, imports, tags
+			\item Partial credit for good Triton semantics
+			\item Reasonable variable names and code organization
+		\end{itemize}
+	\end{block}
+	\begin{block}{Multi-Level Reward Structure (2)}
+		\begin{description}
+			\item[\textbf{Reward 2:}] \textbf{Compilation (0.3-0.6)}
+		\end{description}
+		\begin{itemize}
+			\item Code that executes without errors
+			\item No runtime exceptions or syntax errors
+			\item Properly imports required dependencies
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Defining Rewards for Code Generation (cont.)}
+	\begin{block}{Multi-Level Reward Structure (3)}
+		\begin{description}
+			\item[\textbf{Reward 3:}] \textbf{Correctness (0.6-1.0)}
+		\end{description}
+	\end{block}
+	\begin{itemize}
+		\item Output matches PyTorch function on test inputs
+		\item Anti-reward-hacking measures (checking for hardcoded outputs)
+		\item Proper handling of edge cases and different input shapes
+	\end{itemize}
+	\vspace{0.5em}
+	\begin{block}{Benefits of This Reward Structure}
+		\begin{itemize}
+			\item Provides clear progression path for the model
+			\item Allows partial credit for partial solutions
+			\item Mirrors how humans learn to code
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Example Implementation of Reward Function}
+	\begin{block}{Reward Function Logic - Part 1}
+		\begin{enumerate}
+			\item \textbf{Formatting check:}
+			\begin{itemize}
+				\item If code has proper Triton syntax $\rightarrow$ reward = 0.2
+			\end{itemize}
+			\item \textbf{Compilation check:}
+			\begin{itemize}
+				\item If code compiles successfully $\rightarrow$ reward = 0.5
+				\item If compilation fails $\rightarrow$ return current reward
+			\end{itemize}
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Example Implementation of Reward Function (cont.)}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Reward Function Logic - Part 2}
+				\begin{enumerate}\setcounter{enumi}{2}
+					\item \textbf{Correctness check:}
+					\begin{itemize}
+						\item For each test case, compare PyTorch and Triton results
+						\item If outputs match $\rightarrow$ reward = 1.0
+						\item Otherwise $\rightarrow$ reward = 0.6
+					\end{itemize}
+				\end{enumerate}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Key Elements}
+				\begin{itemize}
+					\item Multi-stage evaluation process
+					\item Each stage builds on the previous
+					\item Partial rewards for partial successes
+					\item Deterministic verification through test cases
+					\item Numerically scaled from 0.0 to 1.0
+					\item Multiple test cases ensure robustness
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Training Loop and Results}
+	\begin{block}{How GRPO (Gradient-based Reward Policy Optimization) Works:}
+		\begin{itemize}
+			\item \textbf{Generate}: Multiple completions per prompt using sampling
+			\item \textbf{Evaluate}: Run reward checks on each completion
+			\item \textbf{Update}: Compute advantages and backpropagate signals
+			\item \textbf{Repeat}: Model refines strategy to maximize rewards
+		\end{itemize}
+	\end{block}
+	\begin{block}{Results:}
+		\begin{itemize}
+			\item 53\% accuracy on held-out examples after 5,000 steps
+			\item 3x higher correctness rate than OpenAI o1 and DeepSeek-R1
+			\item 4x better performance than Claude 3.7 Sonnet
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\textbf{Performance Comparison}: RFT vs. Leading Models}
+	\vspace{-0.2cm}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{center}
+				\begin{tikzpicture}[scale=0.8, transform shape]
+					\begin{axis}[
+						ybar,
+						axis lines=left,
+						bar width=20pt,
+						ylabel={\textbf{Accuracy (\%)}},
+						symbolic x coords={RFT, o1, DeepSeek-R1, Claude 3.7},
+						xtick=data,
+						xtick style={draw=none},
+						ytick={0,10,20,30,40,50,60},
+						ymin=0,
+						ymax=60,
+						nodes near coords={\textbf{\pgfmathprintnumber\pgfplotspointmeta}},
+						width=6.5cm,
+						height=5cm,
+						major grid style={draw=gray!30},
+						grid=major,
+						]
+						\addplot[fill=blue!80, draw=blue!90!black] coordinates {(RFT, 53) (o1, 18) (DeepSeek-R1, 17) (Claude 3.7, 13)};
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{\textbf{RFT Training Progression}}
+				\begin{itemize}\setlength{\itemsep}{0.4em}
+					\item \textbf{Starting point}: 5\% accuracy
+					\item \textbf{Early training} (1,000 steps): 22\%
+					\item \textbf{Mid-training} (3,000 steps): 41\%
+					\item \textbf{Final result}: \textcolor{blue}{53\% accuracy}
+					\item Model developed generalizable patterns beyond the limited training examples
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[shrink=15]
+	\frametitle{Performance Comparison with Leading Models}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Results:}
+				\begin{itemize}\setlength{\itemsep}{0.3em}
+					\item 53\% accuracy on held-out examples after 5,000 steps
+					\item 3x higher correctness rate than OpenAI o1 and DeepSeek-R1
+					\item 4x better performance than Claude 3.7 Sonnet
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Key Success Factors}
+				\begin{itemize}\setlength{\itemsep}{0.3em}
+					\item \textbf{奖励设计}: 多级奖励提供了清晰的学习信号
+					\item \textbf{测试多样性}: 多样化的测试用例防止了过拟合
+					\item \textbf{反奖励黑客}: 防止模型仅仅记忆输出
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\section{使用Unsloth实现实用的RFT}
+
+\begin{frame}[shrink=60]
+	\frametitle{Unsloth实用RFT工作流程}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Unsloth是什么？}
+				\begin{itemize}
+					\item 用于高效LLM微调的开源库
+					\item 可在有限硬件上运行（3GB+显存）
+					\item 支持QLoRA、LoRA、RLHF、GRPO
+					\item 比标准方法快2-4倍
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{开发工作流程}
+				\begin{enumerate}
+					\item \textbf{设置}: 安装依赖项
+					\item \textbf{模型}: 选择基础模型
+					\item \textbf{数据}: 格式化训练数据
+					\item \textbf{配置}: 设置参数
+					\item \textbf{训练}: 运行微调
+					\item \textbf{部署}: 保存并服务
+				\end{enumerate}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{步骤1: 环境设置}
+	\begin{block}{安装Unsloth}
+		\begin{mintedbox}{bash}
+# Basic installation
+pip install unsloth
+
+# For specific CUDA versions
+# pip install unsloth[cu118]  # CUDA 11.8
+# pip install unsloth[cu121]  # CUDA 12.1
+		\end{mintedbox}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{步骤1: 所需库}
+	\begin{mintedbox}{python}
+# 导入必要库
+import torch
+from unsloth import FastLanguageModel
+from datasets import load_dataset
+from transformers import TrainingArguments
+	\end{mintedbox}
+	\begin{block}{性能优化}
+		\begin{itemize}
+			\item 适用于显存有限设备的CPU卸载
+			\item 用于更快训练的Flash Attention 2（在支持的GPU上）
+			\item 梯度检查点以计算换内存
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{步骤2: 选择模型与方法}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{加载基础模型}
+			\begin{mintedbox}{python}
+max_seq_length = 2048
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name = "unsloth/llama-3.1-8b-bnb-4bit",
+    max_seq_length = max_seq_length,
+    load_in_4bit = True)
+			\end{mintedbox}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{选择微调方法}
+				\begin{itemize}
+					\item \textbf{QLoRA}: 与LoRA结合的4位量化（最少资源）
+					\item \textbf{LoRA}: 低秩适应（质量/资源平衡）
+					\item \textbf{GRPO}: 用于DeepSeek风格的强化学习
+					\item \textbf{全量微调}: 在高端硬件上获得最佳质量
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{步骤2: 为RFT配置LoRA}
+	\begin{block}{RFT特定配置}
+		\begin{itemize}
+			\item 针对键值注意力层以获得最高效的适应
+			\item 对于强化学习等复杂任务使用秩16-32
+			\item 添加dropout防止对奖励信号过拟合
+			\item 启用梯度检查点以在训练期间节省内存
+		\end{itemize}
+	\end{block}
+	\begin{block}{代码实现}
+		\begin{mintedbox}{python}
+model = FastLanguageModel.get_peft_model(
+    model,
+    r = 16,  # LoRA rank
+    target_modules = ["q_proj", "k_proj", "v_proj", "o_proj"],
+    alpha = 16,  # LoRA alpha
+    dropout = 0.05,  # Add regularization
+    use_gradient_checkpointing = True)
+		\end{mintedbox}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{步骤3: 数据集准备}
+	\begin{block}{RFT的数据集格式}
+		\begin{itemize}
+			\item 格式化包含输入和预期输出的数据集
+			\item 包含奖励信号或成功标准
+			\item 确保不同场景下的多样化示例
+		\end{itemize}
+	\end{block}
+	\begin{mintedbox}{python}
+dataset = [
+    {"input": "Solve: $2x + 3 = 7$", 
+     "output": "To solve for x:\n$2x + 3 = 7$\n$2x = 4$\n$x = 2$"},
+    {"input": "What is the capital of France?", 
+     "output": "The capital of France is Paris."},
+    # ...more examples
+]
+	\end{mintedbox}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{步骤3: 数据集格式化为训练}
+	\begin{block}{应用适当的模板}
+		\begin{itemize}
+			\item 使用模型的特定聊天模板格式
+			\item 确保正确应用特殊标记
+			\item 为您的用例设置适当的序列长度
+		\end{itemize}
+	\end{block}
+	\begin{mintedbox}{python}
+formatted_dataset = FastLanguageModel.format_dataset(
+    dataset,
+    tokenizer,
+    max_seq_length,
+    add_special_tokens = True,
+    template = "<s>[INST] {input} [/INST] {output} </s>"
+)
+	\end{mintedbox}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{步骤4: 配置训练参数}
+	\begin{block}{训练参数}
+	\begin{mintedbox}{python}
+training_args = TrainingArguments(
+    output_dir = "./results",
+    num_train_epochs = 3,
+    per_device_train_batch_size = 4,
+    gradient_accumulation_steps = 2,
+    learning_rate = 2e-4,
+    weight_decay = 0.01,
+    max_grad_norm = 0.3,
+    logging_steps = 10,
+    save_total_limit = 3,
+)
+	\end{mintedbox}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{步骤4: RFT的超参数选择}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{关键超参数}
+				\begin{itemize}
+					\item \textbf{LoRA秩 (r)}: 在8-32之间；越高提供更强的表达能力
+					\item \textbf{LoRA Alpha}: 通常与秩相同
+					\item \textbf{学习率}: QLoRA为2e-4至5e-4
+					\item \textbf{训练轮数}: 小数据集为2-5轮
+					\item \textbf{Dropout}: 0.05-0.1用于正则化
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Avoid Overfitting in RFT}
+				\begin{itemize}
+					\item Increase dropout if showing signs of overfitting
+					\item Implement early stopping by monitoring loss
+					\item Use a validation set to evaluate generalization
+					\item Add weight decay for regularization
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 5: Training Execution}
+	\begin{block}{Execute Training}
+		\begin{mintedbox}{python}
+from trl import SFTTrainer
+
+trainer = SFTTrainer(
+    model = model,
+    train_dataset = formatted_dataset,
+    args = training_args,
+    tokenizer = tokenizer,
+    packing = False,
+    dataset_text_field = "text",
+)
+		\end{mintedbox}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 5: Training Process and Monitoring}
+	\begin{block}{Run Training}
+		\begin{mintedbox}{python}
+# Start training
+trainer.train()
+		\end{mintedbox}
+	\end{block}
+	\begin{block}{Monitor Key Metrics}
+		\begin{itemize}
+			\item \textbf{Training Loss}: Should steadily decrease but not plateau too quickly
+			\item \textbf{Validation Loss}: Monitor for signs of overfitting (uptick in validation loss)
+			\item \textbf{Learning Rate}: Record effect of LR variations on performance
+			\item \textbf{GPU Utilization}: Verify efficient resource usage
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 6: Evaluation}
+	\begin{block}{Evaluate Model Performance}
+		\begin{itemize}
+			\item Load the fine-tuned model for inference
+			\item Create structured test prompts
+			\item Compare with baseline model on same inputs
+			\item Test diverse scenarios and edge cases
+			\item Measure inference speed and resource usage
+		\end{itemize}
+	\end{block}
+	\begin{mintedbox}{python}
+# Example test inference
+prompt = "Solve: 3x + 5 = 20"
+response = model.generate_text(prompt)
+# Result: "To solve: 3x + 5 = 20
+Subtract 5: 3x = 15
+Divide by 3: x = 5"
+	\end{mintedbox}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 6: Deployment}
+	\begin{block}{Save and Deploy Model}
+		\begin{itemize}
+			\item Save trained model and tokenizer
+			\item Optimize for inference (e.g., ONNX conversion) 
+			\item Configure deployment environment
+			\item Set up monitoring and logging
+		\end{itemize}
+	\end{block}
+	\begin{mintedbox}{python}
+# Save the fine-tuned model
+model.save_pretrained("./my-rft-model")
+tokenizer.save_pretrained("./my-rft-model")
+	\end{mintedbox}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Step 6: Continuous Improvement}
+	\begin{block}{Ongoing Refinement}
+		\begin{itemize}
+			\item Collect user feedback and model outputs in production
+			\item Update reward functions based on real-world performance
+			\item Expand training dataset with edge cases discovered in deployment
+			\item Periodically retrain to incorporate improvements
+		\end{itemize}
+	\end{block}
+	\begin{block}{Long-term Maintenance}
+		\begin{itemize}
+			\item Monitor for performance degradation over time
+			\item Keep track of new best practices in RFT 
+			\item Evaluate benefits of updating to newer base models
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Ready-to-Use Unsloth Notebooks}
+	\begin{block}{Available Implementation Resources}
+		\begin{itemize}
+			\item Unsloth provides ready-to-use notebooks for various models and tasks
+			\item Accessible via Google Colab or Kaggle (free GPU resources)
+			\item Includes both fine-tuning and GRPO (RFT) implementations
+		\end{itemize}
+	\end{block}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Popular Models}
+				\begin{itemize}
+					\item Llama 3.1 (8B)
+					\item Phi-4 (14B)
+					\item Mistral (7B, 22B)
+					\item Qwen 2.5 (3B, 14B)
+					\item Gemma 2 (2B, 9B)
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Specialized Variants}
+				\begin{itemize}
+					\item Qwen2.5-Coder (14B)
+					\item CodeGemma (7B)
+					\item Llama 3.2 Vision
+					\item Qwen2-VL (7B)
+					\item Phi-3 Medium
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+	\begin{center}
+		\small{Notebooks available at: \texttt{https://docs.unsloth.ai/get-started/unsloth-notebooks}}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Dataset Construction for RFT}
+	\begin{block}{Getting Started}
+		\begin{itemize}
+			\item Identify the purpose of your dataset: chat dialogues, structured tasks, or domain-specific data
+			\item Define desired output style: JSON, HTML, text, code or specific languages
+			\item Determine data sources: Hugging Face datasets, Wikipedia, or synthetic data
+		\end{itemize}
+	\end{block}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Common Data Formats}
+				\begin{itemize}
+					\item Text-only format
+					\item Instruction-Input-Output
+					\item ShareGPT format (multi-turn)
+					\item ChatML (OpenAI style)
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Dataset Requirements}
+				\begin{itemize}
+					\item Minimum: 100 examples
+					\item Optimal: 1,000+ examples
+					\item Quality over quantity
+					\item Can combine multiple datasets
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{RFT Implementation: Common Pitfalls (1)}
+	\begin{itemize}
+		\item \textbf{Problem}: Model produces generic or refuses to generate responses\\
+		  \textbf{Solution}: Increase LoRA rank and alpha; ensure diverse training data
+		\item \textbf{Problem}: Catastrophic forgetting (model loses pre-trained capabilities)\\
+		  \textbf{Solution}: Lower learning rate; add regularization
+		\item \textbf{Problem}: High training loss that doesn't converge\\
+		  \textbf{Solution}: Check dataset formatting; reduce sequence length
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[shrink=10]
+	\frametitle{RFT实施：常见问题 (2)}
+	\begin{itemize}
+		\item \textbf{问题}: 训练期间内存不足错误\\
+		  \textbf{解决方案}: 启用梯度检查点；减小批量大小
+		\item \textbf{问题}: 模型生成幻觉\\
+		  \textbf{解决方案}: 实施惩罚虚构内容的奖励函数
+		\item \textbf{问题}: 使用奖励信号时训练不稳定\\
+		  \textbf{解决方案}: 归一化奖励；使用带有适当裁剪的PPO
+	\end{itemize}
+\end{frame}
+
+\section{结论}
+
+\begin{frame}[shrink=60]
+	\frametitle{关键要点}
+	\vspace{-0.2cm}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{RFT的力量:}
+				\begin{itemize}\setlength{\itemsep}{-0.1em}
+					\item \textbf{自我提升}: 模型超越静态方法
+					\item \textbf{数据效率}: 使用更少数据超越SFT
+					\item \textbf{速度}: Turbo LoRA将处理量提高2-4倍
+					\item \textbf{实际应用}: 超越学术领域
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{范式转变:}
+				\begin{itemize}\setlength{\itemsep}{-0.1em}
+					\item \textbf{传统方式}: 大数据 $\rightarrow$ 静态模型
+					\item \textbf{RFT}: 最小数据 + 奖励 $\rightarrow$ 成长
+					\item \textbf{新循环}: 持续改进
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[shrink=10]
+	\frametitle{实施策略 - 核心组件}
+	\begin{block}{所需核心组件}
+		\begin{enumerate}
+			\item 基础模型（开源LLM）
+			\item 奖励函数定义
+			\item 提示数据集（可以很小）
+			\item 强化学习算法（RLHF、GRPO等）
+			\item 评估框架
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+\begin{frame}[shrink=10]
+	\frametitle{实施策略 - 最佳实践}
+	\begin{block}{最佳实践}
+		\begin{itemize}
+			\item 从小型、清晰的奖励函数开始
+			\item 构建全面的验证测试
+			\item 实施反奖励黑客措施
+			\item 监控演发行为
+			\item 逐步增加复杂性
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[shrink=10]
+	\frametitle{RFT的后续步骤}
+	\begin{block}{开始使用:}
+		\begin{itemize}
+			\item 强化微调标志着LLM发展的重大飞跃
+			\item 通过奖励信号而非标记示例进行训练
+			\item 端到端平台使开发者能够轻松使用这种方法
+			\item 专注于创新而非基础设施复杂性
+		\end{itemize}
+	\end{block}
+	\begin{block}{RFT应用的成熟领域}
+		\begin{itemize}
+			\item \textbf{专业编程}: 领域特定的代码生成（嵌入式系统、高性能计算）
+			\item \textbf{科学研究}: 提出并验证假设的模型
+			\item \textbf{推理任务}: 复杂的逻辑和数学问题解决
+			\item \textbf{教育}: 能够理解学生知识空白的自适应辅导系统
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{}
+	\begin{center}
+		\LARGE Thank You!
+	\end{center}
+	\begin{center}
+		\large Questions?
+	\end{center}
+\end{frame}
+
+\end{document}
