@@ -704,7 +704,7 @@
 
 \section{Practical RFT Implementation with Unsloth}
 
-\begin{compactframe}
+\begin{frame}[shrink=60]
 	\frametitle{Hands-On RFT Workflow with Unsloth}
 	\begin{columns}[T]
 		\begin{column}{0.48\textwidth}
@@ -1090,24 +1090,30 @@ tokenizer.save_pretrained("./my-rft-model")
 
 \section{Conclusion}
 
-\begin{frame}
+\begin{frame}[shrink=60]
 	\frametitle{Key Takeaways}
-	\begin{block}{The Power of Reinforcement Fine-Tuning:}
-		\begin{itemize}
-			\item \textbf{Self-Improvement is Real}: Models can surpass static approaches through iterative rewards
-			\item \textbf{RFT Shines With Little Data}: Outperforms SFT when labeled data is scarce
-			\item \textbf{Reasoning Doesn't Need to be Slow}: Turbo LoRA increases throughput by 2-4x
-			\item \textbf{Real-World Feasibility}: Moving beyond academic exercises to practical applications
-		\end{itemize}
-	\end{block}
-	\begin{block}{Paradigm Shift in AI Development}
-		\begin{itemize}
-			\item Traditional LLM training: massive datasets $\rightarrow$ static deployment
-			\item RFT approach: minimal datasets + reward functions $\rightarrow$ continuous improvement
-			\item Fundamentally changes how we think about model improvement cycles
-			\item Smaller teams can now compete with resource-rich organizations
-		\end{itemize}
-	\end{block}
+	\vspace{-0.2cm}
+	\begin{columns}[T]
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Power of RFT:}
+				\begin{itemize}\setlength{\itemsep}{-0.1em}
+					\item \textbf{Self-Improvement}: Models surpass static approaches
+					\item \textbf{Data Efficient}: Outperforms SFT with less data
+					\item \textbf{Speed}: Turbo LoRA increases throughput 2-4x
+					\item \textbf{Real-World Applications}: Beyond academia
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Paradigm Shift:}
+				\begin{itemize}\setlength{\itemsep}{-0.1em}
+					\item \textbf{Traditional}: Big data $\rightarrow$ static models
+					\item \textbf{RFT}: Minimal data + rewards $\rightarrow$ growth
+					\item \textbf{New Cycle}: Continuous improvement
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}
