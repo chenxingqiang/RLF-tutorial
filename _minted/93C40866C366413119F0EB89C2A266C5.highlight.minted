@@ -1,5 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{\PYGZsh{} Start training}
-\PYG{n}{trainer}\PYG{o}{.}\PYG{n}{train}\PYG{p}{(}\PYG{p}{)}
-\PYG{o}{\PYGZca{}}\PYG{o}{\PYGZca{}}\PYG{n}{I}\PYG{o}{\PYGZca{}}\PYG{o}{\PYGZca{}}\PYG{n}{I}
-\end{MintedVerbatim}
